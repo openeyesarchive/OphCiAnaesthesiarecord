@@ -26,5 +26,10 @@
 			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('comments'))?></td>
 			<td><span class="big"><?php echo CHtml::encode($element->comments)?></span></td>
 		</tr>
+		<tr>
+			<td colspan="2">
+				<?php echo $this->renderPartial('_grid',array('element'=>$element))?>
+			</td>
+		</tr>
 	</tbody>
 </table>

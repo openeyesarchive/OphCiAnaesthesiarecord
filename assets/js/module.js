@@ -39,6 +39,45 @@ $(document).ready(function() {
 			}
 		}
 	});
+
+	$('#add_item').click(function(e) {
+		e.preventDefault();
+
+		var n = 1;
+
+		$('input[name^="reading_time_"]').map(function() {
+			var id = parseInt($(this).attr('name').match(/[0-9]+/));
+			if (id >= n) {
+				n = id+1;
+			}
+		});
+
+		$.ajax({
+			'type': 'GET',
+			'url': baseUrl+'/OphCiAnaesthesiarecord/default/addItem?n='+n,
+			'success': function(html) {
+				$('#items').append(html);
+			}
+		});
+	});
+
+	$('select[name^="data_type_"]').live('change',function(e) {
+		var n = $(this).attr('name').match(/[0-9]+/);
+
+		if ($(this).val() == 'drug') {
+			$('select[name="reading_type_'+n+'"]').parent().hide();
+			$('select[name="drug_'+n+'"]').parent().show();
+		} else {
+			$('select[name="reading_type_'+n+'"]').parent().show();
+			$('select[name="drug_'+n+'"]').parent().hide();
+		}
+	});
+
+	$('.remove_item').live('click',function(e) {
+		e.preventDefault();
+
+		$(this).parent().parent().remove();
+	});
 });
 
 function ucfirst(str) { str += ''; var f = str.charAt(0).toUpperCase(); return f + str.substr(1); }

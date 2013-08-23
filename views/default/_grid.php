@@ -18,28 +18,21 @@
  */
 ?>
 
-<div class="element <?php echo $element->elementType->class_name?>"
-	data-element-type-id="<?php echo $element->elementType->id?>"
-	data-element-type-class="<?php echo $element->elementType->class_name?>"
-	data-element-type-name="<?php echo $element->elementType->name?>"
-	data-element-display-order="<?php echo $element->elementType->display_order?>">
-	<h4 class="elementTypeName"><?php echo $element->elementType->name; ?></h4>
-
-	<?php echo $form->timeField($element,'start_time',array('size'=>6))?>
-
-	<div id="div_Element_OphCiAnaesthesiarecord_Readings" class="eventDetail">
-		<div class="label">Data items:</div>
-		<div class="data">
-			<div id="items">
-				<?php foreach ($this->getItems($element) as $item) {?>
-					<?php echo $this->renderPartial('_item',array('item'=>$item))?>
-				<?php }?>
-			</div>
-			<button type="button" class="classy blue mini" id="add_item" name="add_item">
-				<span class="button-span button-span-blue">Add</span>
-			</button>
-		</div>
-	</div>
-
-	<?php echo $form->textArea($element, 'comments', array('rows' => 6, 'cols' => 80))?>
-</div>
+<table class="anaesthesia_grid">
+	<?php foreach (OphCiAnaesthesiarecord_Drug::model()->findAll(array('order'=>'display_order')) as $drug) {?>
+		<tr>
+			<th><?php echo $drug->name?></th>
+			<?php for ($i=0;$i<20;$i++) {?>
+				<td></td>
+			<?php }?>
+		</tr>
+	<?php }?>
+	<?php foreach (OphCiAnaesthesiarecord_Reading_Type::model()->findAll(array('order'=>'display_order')) as $reading_type) {?>
+		<tr>
+			<th><?php echo $reading_type->name?></th>
+			<?php for ($i=0;$i<20;$i++) {?>
+				<td></td>
+			<?php }?>
+		</tr>
+	<?php }?>
+</table>

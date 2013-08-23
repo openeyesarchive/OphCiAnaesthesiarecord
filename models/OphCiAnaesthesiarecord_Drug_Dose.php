@@ -18,23 +18,16 @@
  */
 
 /**
- * This is the model class for table "et_ophcianaesthesiarecord_readings".
+ * This is the model class for table "ophcianaesthesiarecord_drug_dose".
  *
  * The followings are the available columns in table:
- * @property string $id
- * @property integer $event_id
- * @property string $comments
- *
- * The followings are the available model relations:
- *
- * @property ElementType $element_type
- * @property EventType $eventType
- * @property Event $event
- * @property User $user
- * @property User $usermodified
+ * @property integer $id
+ * @property integer $drug_id
+ * @property string $dose_time
+ * @property string $dose
  */
 
-class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
+class OphCiAnaesthesiarecord_Drug_Dose extends BaseEventTypeElement
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -50,7 +43,7 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 	 */
 	public function tableName()
 	{
-		return 'et_ophcianaesthesiarecord_readings';
+		return 'ophcianaesthesiarecord_drug_dose';
 	}
 
 	/**
@@ -61,12 +54,11 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('event_id, comments, start_time', 'safe'),
-			array('comments, start_time', 'required'),
-			array('readings', 'OneOf', 'drugs', 'readings'),
+			array('drug_id, dose_time, dose', 'safe'),
+			array('drug_id, dose_time, dose', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, event_id, comments, start_time', 'safe', 'on' => 'search'),
+			array('id, drug_id, dose_time, dose', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -78,13 +70,6 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'element_type' => array(self::HAS_ONE, 'ElementType', 'id','on' => "element_type.class_name='".get_class($this)."'"),
-			'eventType' => array(self::BELONGS_TO, 'EventType', 'event_type_id'),
-			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
-			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
-			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
-			'drugs' => array(self::HAS_MANY, 'OphCiAnaesthesiarecord_Drug_Dose', 'element_id', 'order' => 'display_order'),
-			'readings' => array(self::HAS_MANY, 'OphCiAnaesthesiarecord_Reading', 'element_id', 'order' => 'display_order'),
 		);
 	}
 
@@ -95,8 +80,9 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 	{
 		return array(
 			'id' => 'ID',
-			'event_id' => 'Event',
-			'comments' => 'Comments',
+			'drug_id' => 'Drug',
+			'dose_time' => 'Time',
+			'dose' => 'Dose',
 		);
 	}
 
@@ -112,55 +98,13 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id, true);
-		$criteria->compare('event_id', $this->event_id, true);
-		$criteria->compare('comments', $this->comments);
+		$criteria->compare('drug_id', $this->drug_id);
+		$criteria->compare('dose_time', $this->dose_time);
+		$criteria->compare('dose', $this->dose);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
-	}
-
-	public function getItems() {
-		$items = array();
-
-		foreach (OphCiAnaesthesiarecord_Reading::model()->findAll(array('condition'=>'element_id=?','params'=>array($this->id),'order'=>'display_order')) as $reading) {
-			$items[$reading->display_order] = $reading;
-		}
-
-		foreach (OphCiAnaesthesiarecord_Drug_Dose::model()->findAll(array('condition'=>'element_id=?','params'=>array($this->id),'order'=>'display_order')) as $dose) {
-			$items[$dose->display_order] = $dose;
-		}
-
-		ksort($items);
-
-		return $items;
-	}
-
-	public function setDefaultOptions()
-	{
-		$ts = time();
-
-		while (date('i',$ts) != '00' && date('i',$ts) != '30') {
-			$ts -= 60;
-		}
-
-		$this->start_time = date('H:i',$ts);
-	}
-
-	public function OneOf($attribute, $params)
-	{
-		$valid = false;
-
-		foreach ($params as $param) {
-			if ($this->$param) {
-				$valid = true;
-				break;
-			}
-		}
-
-		if ($valid === false) {
-			$this->addError($attribute, 'You must enter at least one drug or reading');
-		}
 	}
 }
 ?>
