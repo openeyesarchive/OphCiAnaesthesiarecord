@@ -162,5 +162,33 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 			$this->addError($attribute, 'You must enter at least one drug or reading');
 		}
 	}
+
+	public function getDrugItem($drug_id, $offset)
+	{
+		preg_match('/^([0-9]+)\:([0-9]+)/',$this->start_time,$m);
+
+		$ts = mktime($m[1],$m[2],0,1,1,2012);
+
+		$from = $ts + ($offset * 15 * 60);
+		$to = $ts + (($offset+1) * 15 * 60);
+
+		if ($dose = OphCiAnaesthesiarecord_Drug_Dose::model()->find('element_id=? and drug_id=? and dose_time >= ? and dose_time < ?',array($this->id,$drug_id,date('H:i',$from),date('H:i',$to)))) {
+			return $dose->dose;
+		}
+	}
+
+	public function getReadingItem($reading_type_id, $offset)
+	{
+		preg_match('/^([0-9]+)\:([0-9]+)/',$this->start_time,$m);
+
+		$ts = mktime($m[1],$m[2],0,1,1,2012);
+
+		$from = $ts + ($offset * 15 * 60);
+		$to = $ts + (($offset+1) * 15 * 60);
+		
+		if ($reading = OphCiAnaesthesiarecord_Reading::model()->find('element_id=? and reading_type_id=? and reading_time >= ? and reading_time < ?',array($this->id,$reading_type_id,date('H:i',$from),date('H:i',$to)))) {
+			return $reading->value;
+		}
+	}
 }
 ?>

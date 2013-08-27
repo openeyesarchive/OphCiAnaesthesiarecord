@@ -30,7 +30,7 @@
 		<label>Reading:</label>
 	</span>
 	<span class="drug"<?php if (get_class($item) == 'OphCiAnaesthesiarecord_Reading') {?> style="display: none;"<?php }?>>
-		<?php echo CHtml::dropDownList("drug_".$item->display_order,(get_class($item) == 'OphCiAnaesthesiarecord_Drug' ? $item->drug_id : ''),CHtml::listData(OphCiAnaesthesiarecord_Drug::model()->findAll(array('order'=>'display_order')),'id','name'),array('empty'=>'- Drug -'))?>
+		<?php echo CHtml::dropDownList("drug_".$item->display_order,(get_class($item) == 'OphCiAnaesthesiarecord_Drug_Dose' ? $item->drug_id : ''),CHtml::listData(OphCiAnaesthesiarecord_Drug::model()->findAll(array('order'=>'display_order')),'id','name'),array('empty'=>'- Drug -'))?>
 		<label>Dose:</label>
 	</span>
 	<span class="value">

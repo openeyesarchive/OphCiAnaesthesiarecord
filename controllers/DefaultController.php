@@ -26,32 +26,7 @@ class DefaultController extends BaseEventTypeController
 	{
 		$reading = new OphCiAnaesthesiarecord_Reading;
 		$reading->display_order = @$_GET['n'];
-
-		$hr = date('H');
-		$min = date('i');
-
-		$remainder = $min % 15;
-
-		if ($remainder >= 8) {
-			$min = $min + (15 - ($min % 15));
-			if ($min == 60) {
-				$hr++;
-				if ($hr == 24) {
-					$hr = '00';
-				}
-				if (strlen($hr) <2) {
-					$hr = '0'.$hr;
-				}
-				$min = '00';
-			}
-		} else {
-			$min = $min - ($min % 15);
-			if (strlen($min) <2) {
-				$min = '0'.$min;
-			}
-		}
-
-		$reading->reading_time = "$hr:$min";
+		$reading->reading_time = date('H:i');
 
 		$this->renderPartial('_item',array('item'=>$reading));
 	}

@@ -23,7 +23,7 @@
 		<tr>
 			<th><?php echo $drug->name?></th>
 			<?php for ($i=0;$i<20;$i++) {?>
-				<td></td>
+				<td><?php echo $element->getDrugItem($drug->id,$i)?></td>
 			<?php }?>
 		</tr>
 	<?php }?>
@@ -31,7 +31,7 @@
 		<tr>
 			<th><?php echo $reading_type->name?></th>
 			<?php for ($i=0;$i<20;$i++) {?>
-				<td></td>
+				<td><?php echo $element->getReadingItem($reading_type->id,$i)?></td>
 			<?php }?>
 		</tr>
 	<?php }?>
