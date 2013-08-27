@@ -165,14 +165,17 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 		}
 	}
 
-	public function getDrugItem($drug_id, $offset)
+	public function getStartTimeTS()
 	{
 		preg_match('/^([0-9]+)\:([0-9]+)/',$this->start_time,$m);
 
-		$ts = mktime($m[1],$m[2],0,1,1,2012);
+		return mktime($m[1],$m[2],0,1,1,2012);
+	}
 
-		$from = $ts + ($offset * 15 * 60);
-		$to = $ts + (($offset+1) * 15 * 60);
+	public function getDrugItem($drug_id, $offset)
+	{
+		$from = $this->startTimeTS + ($offset * 15 * 60);
+		$to = $this->startTimeTS + (($offset+1) * 15 * 60);
 
 		if ($dose = OphCiAnaesthesiarecord_Drug_Dose::model()->find('element_id=? and drug_id=? and dose_time >= ? and dose_time < ?',array($this->id,$drug_id,date('H:i',$from),date('H:i',$to)))) {
 			return $dose->dose;
@@ -181,12 +184,8 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 
 	public function getReadingItem($reading_type_id, $offset)
 	{
-		preg_match('/^([0-9]+)\:([0-9]+)/',$this->start_time,$m);
-
-		$ts = mktime($m[1],$m[2],0,1,1,2012);
-
-		$from = $ts + ($offset * 15 * 60);
-		$to = $ts + (($offset+1) * 15 * 60);
+		$from = $this->startTimeTS + ($offset * 15 * 60);
+		$to = $this->startTimeTS + (($offset+1) * 15 * 60);
 		
 		if ($reading = OphCiAnaesthesiarecord_Reading::model()->find('element_id=? and reading_type_id=? and reading_time >= ? and reading_time < ?',array($this->id,$reading_type_id,date('H:i',$from),date('H:i',$to)))) {
 			return $reading->value;
@@ -195,14 +194,10 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 
 	public function getTimeIntervals()
 	{
-		preg_match('/^([0-9]+)\:([0-9]+)/',$this->start_time,$m);
-
-		$ts = mktime($m[1],$m[2],0,1,1,2012);
-
 		$times = array();
 
 		for ($i=0; $i<$this->intervals; $i++) {
-			$times[] = date('H:i',($ts + ($i * 15 * 60)));
+			$times[] = date('H:i',($this->startTimeTS + ($i * 15 * 60)));
 		}
 
 		return $times;
