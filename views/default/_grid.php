@@ -19,10 +19,17 @@
 ?>
 
 <table class="anaesthesia_grid">
+	<tr class="times">
+		<?php foreach ($element->getTimeIntervals() as $time) {?>
+			<td align="right">
+				<span><?php echo $time?></span>
+			</td>
+		<?php }?>
+	</tr>
 	<?php foreach (OphCiAnaesthesiarecord_Drug::model()->findAll(array('order'=>'display_order')) as $drug) {?>
 		<tr>
 			<th><?php echo $drug->name?></th>
-			<?php for ($i=0;$i<20;$i++) {?>
+			<?php for ($i=0;$i<$element->intervals;$i++) {?>
 				<td><?php echo $element->getDrugItem($drug->id,$i)?></td>
 			<?php }?>
 		</tr>
@@ -30,7 +37,7 @@
 	<?php foreach (OphCiAnaesthesiarecord_Reading_Type::model()->findAll(array('order'=>'display_order')) as $reading_type) {?>
 		<tr>
 			<th><?php echo $reading_type->name?></th>
-			<?php for ($i=0;$i<20;$i++) {?>
+			<?php for ($i=0;$i<$element->intervals;$i++) {?>
 				<td><?php echo $element->getReadingItem($reading_type->id,$i)?></td>
 			<?php }?>
 		</tr>

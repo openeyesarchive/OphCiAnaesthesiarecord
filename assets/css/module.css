@@ -26,3 +26,6 @@
 
 .anaesthesia_grid th { border: 1px solid #000; color: #000 !important; background-color: #ccc; }
 .anaesthesia_grid td { border: 1px solid #000; width: 30px; }
+
+.anaesthesia_grid tr.times td { border: none; font-size: 11px; }
+.anaesthesia_grid tr.times span { margin-right: -23px; }
