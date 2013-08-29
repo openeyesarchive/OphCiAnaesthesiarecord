@@ -23,6 +23,10 @@
 <table class="subtleWhite normalText">
 	<tbody>
 		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('start_time'))?></td>
+			<td><span class="big"><?php echo CHtml::encode(substr($element->start_time,0,5))?></span></td>
+		</tr>
+		<tr>
 			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('comments'))?></td>
 			<td><span class="big"><?php echo CHtml::encode($element->comments)?></span></td>
 		</tr>

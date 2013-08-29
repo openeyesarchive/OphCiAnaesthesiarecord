@@ -25,21 +25,8 @@
 	data-element-display-order="<?php echo $element->elementType->display_order?>"<?php if (@$ondemand) {?> style="display: none"<?php }?>>
 	<h4 class="elementTypeName"><?php echo $element->elementType->name; ?></h4>
 
-	<?php echo $form->timeField($element,'start_time',array('size'=>6))?>
-
-	<div id="div_Element_OphCiAnaesthesiarecord_Readings" class="eventDetail">
-		<div class="label">Data items:</div>
-		<div class="data">
-			<div id="items">
-				<?php foreach ($this->getItems($element) as $item) {?>
-					<?php echo $this->renderPartial('_item',array('item'=>$item))?>
-				<?php }?>
-			</div>
-			<button type="button" class="classy blue mini" id="add_item" name="add_item">
-				<span class="button-span button-span-blue">Add</span>
-			</button>
-		</div>
-	</div>
-
-	<?php echo $form->textArea($element, 'comments', array('rows' => 6, 'cols' => 80))?>
+	<?php echo $form->radioButtons($element, 'la_type_id', CHtml::listData(OphCiAnaesthesiarecord_LA_Type::model()->findAll(array('order'=>'display_order')),'id','name'))?>
+	<?php echo $form->radioButtons($element, 'la_method_id', CHtml::listData(OphCiAnaesthesiarecord_LA_Method::model()->findAll(array('order'=>'display_order')),'id','name'))?>
+	<?php echo $form->radioButtons($element, 'la_size_id', CHtml::listData(OphCiAnaesthesiarecord_LA_Size::model()->findAll(array('order'=>'display_order')),'id','value'), null, false, false, false, false, array('append'=>'G'))?>
+	<?php echo $form->radioButtons($element, 'la_length_id', CHtml::listData(OphCiAnaesthesiarecord_LA_Length::model()->findAll(array('order'=>'display_order')),'id','value'), null, false, false, false, false, array('append'=>'"'))?>
 </div>

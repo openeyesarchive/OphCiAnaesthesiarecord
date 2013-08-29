@@ -17,8 +17,26 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 ?>
-<?php $this->renderPartial(
-	'form_' . get_class($element),
-	array('element' => $element, 'data' => $data, 'form' => $form, 'ondemand' => @$ondemand),
-	false, false
-)?>
+
+<h4 class="elementTypeName"><?php echo $element->elementType->name?></h4>
+
+<table class="subtleWhite normalText">
+	<tbody>
+		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('la_type_id'))?></td>
+			<td><span class="big"><?php echo CHtml::encode($element->la_type->name)?></span></td>
+		</tr>
+		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('la_method_id'))?></td>
+			<td><span class="big"><?php echo CHtml::encode($element->la_method->name)?></span></td>
+		</tr>
+		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('la_size_id'))?></td>
+			<td><span class="big"><?php echo CHtml::encode($element->la_size->value)?>G</span></td>
+		</tr>
+		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('la_length_id'))?></td>
+			<td><span class="big"><?php echo CHtml::encode($element->la_length->value)?>"</span></td>
+		</tr>
+	</tbody>
+</table>

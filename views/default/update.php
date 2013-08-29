@@ -44,7 +44,7 @@
 	<?php $this->renderOptionalElements($this->action->id, $form)?>
 	<?php $this->displayErrors($errors)?>
 
-	<div class="cleartall"></div>
+	<div class="clearall"></div>
 	<?php $this->endWidget()?>
 </div>
 

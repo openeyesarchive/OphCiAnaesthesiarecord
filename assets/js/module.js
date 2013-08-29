@@ -2,8 +2,8 @@
 /* Module-specific javascript can be placed here */
 
 $(document).ready(function() {
-			handleButton($('#et_save'),function() {
-					});
+	handleButton($('#et_save'),function() {
+	});
 	
 	handleButton($('#et_cancel'),function(e) {
 		if (m = window.location.href.match(/\/update\/[0-9]+/)) {
@@ -40,7 +40,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$('#add_item').click(function(e) {
+	$('#add_item').live('click',function(e) {
 		e.preventDefault();
 
 		var n = 1;
@@ -77,6 +77,91 @@ $(document).ready(function() {
 		e.preventDefault();
 
 		$(this).parent().parent().remove();
+	});
+
+	$('input[type="checkbox"][name="Element_OphCiAnaesthesiarecord_General[equipment_checked]"]').click(function(e) {
+		$('#div_Element_OphCiAnaesthesiarecord_General_start_time').slideToggle(100);
+		$('#Element_OphCiAnaesthesiarecord_General_anaesthetic_type_id').slideToggle(100);
+
+		if ($(this).is(':checked')) {
+			$.ajax({
+				'type': 'GET',
+				'url': baseUrl+'/OphCiAnaesthesiarecord/default/loadElementByClassName?class_name=Element_OphCiAnaesthesiarecord_Readings',
+				'success': function(html) {
+					$('div.Element_OphCiAnaesthesiarecord_General').after(html);
+					$('div.Element_OphCiAnaesthesiarecord_Readings').slideToggle(100);
+				}
+			});
+		} else {
+			$('div.Element_OphCiAnaesthesiarecord_Readings').slideToggle(100,function() {
+				$('div.Element_OphCiAnaesthesiarecord_Readings').remove();
+			});
+			$('div.Element_OphCiAnaesthesiarecord_Local_Anaesthetic').slideToggle(100,function() {
+				$('div.Element_OphCiAnaesthesiarecord_Local_Anaesthetic').remove();
+			});
+			$('div.Element_OphCiAnaesthesiarecord_IV_Access').slideToggle(100,function() {
+				$('div.Element_OphCiAnaesthesiarecord_IV_Access').remove();
+			});
+			$('div.Element_OphCiAnaesthesiarecord_Airway_Control').slideToggle(100,function() {
+				$('div.Element_OphCiAnaesthesiarecord_Airway_Control').remove();
+			});
+			$('input[name="Element_OphCiAnaesthesiarecord_General[anaesthetic_type_id]"]:checked').removeAttr('checked');
+		}
+	});
+
+	$('input[name="Element_OphCiAnaesthesiarecord_General[anaesthetic_type_id]"]').click(function(e) {
+		switch ($(this).next('label').text()) {
+			case 'LA':
+			case 'LAS':
+				$('div.Element_OphCiAnaesthesiarecord_Airway_Control').slideToggle(100,function() {
+					$('div.Element_OphCiAnaesthesiarecord_Airway_Control').remove();
+				});
+				$('div.Element_OphCiAnaesthesiarecord_IV_Access').slideToggle(100,function() {
+					$('div.Element_OphCiAnaesthesiarecord_IV_Access').remove();
+				});
+
+				if ($('div.Element_OphCiAnaesthesiarecord_Local_Anaesthetic').length <1) {
+					$.ajax({
+						'type': 'GET',
+						'url': baseUrl+'/OphCiAnaesthesiarecord/default/loadElementByClassName?class_name=Element_OphCiAnaesthesiarecord_Local_Anaesthetic',
+						'success': function(html) {
+							$('div.Element_OphCiAnaesthesiarecord_Readings').before(html);
+							$('div.Element_OphCiAnaesthesiarecord_Local_Anaesthetic').slideToggle(100);
+						}
+					});
+				}
+				break;
+			case 'GA':
+				$('div.Element_OphCiAnaesthesiarecord_Local_Anaesthetic').slideToggle(100,function() {
+					$('div.Element_OphCiAnaesthesiarecord_Local_Anaesthetic').remove();
+				});
+
+				if ($('div.Element_OphCiAnaesthesiarecord_IV_Access').length <1) {
+					$.ajax({
+						'type': 'GET',
+						'url': baseUrl+'/OphCiAnaesthesiarecord/default/loadElementByClassName?class_name=Element_OphCiAnaesthesiarecord_Airway_Control',
+						'success': function(html) {
+							$('div.Element_OphCiAnaesthesiarecord_Readings').before(html);
+							$('div.Element_OphCiAnaesthesiarecord_Airway_Control').slideToggle(100);
+
+							$.ajax({
+								'type': 'GET',
+								'url': baseUrl+'/OphCiAnaesthesiarecord/default/loadElementByClassName?class_name=Element_OphCiAnaesthesiarecord_IV_Access',
+								'success': function(html) {
+									$('div.Element_OphCiAnaesthesiarecord_Airway_Control').before(html);
+									$('div.Element_OphCiAnaesthesiarecord_IV_Access').slideToggle(100);
+								}
+							});
+						}
+					});
+				}
+		}
+	});
+
+	$('input[name="Element_OphCiAnaesthesiarecord_Local_Anaesthetic[la_type_id]"]').live('click',function(e) {
+		$('input[name="Element_OphCiAnaesthesiarecord_Local_Anaesthetic[la_method_id]"][value="'+OphCiAnaesthesiarecord_la_defaults[$(this).next('label').text()]['default_method_id']+'"]').attr('checked','checked');
+		$('input[name="Element_OphCiAnaesthesiarecord_Local_Anaesthetic[la_size_id]"][value="'+OphCiAnaesthesiarecord_la_defaults[$(this).next('label').text()]['default_size_id']+'"]').attr('checked','checked');
+		$('input[name="Element_OphCiAnaesthesiarecord_Local_Anaesthetic[la_length_id]"][value="'+OphCiAnaesthesiarecord_la_defaults[$(this).next('label').text()]['default_length_id']+'"]').attr('checked','checked');
 	});
 });
 

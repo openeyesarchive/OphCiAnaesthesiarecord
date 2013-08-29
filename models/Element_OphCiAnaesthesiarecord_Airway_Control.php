@@ -18,13 +18,14 @@
  */
 
 /**
- * This is the model class for table "et_ophcianaesthesiarecord_readings".
+ * This is the model class for table "et_ophcianaesthesiarecord_airway_control".
  *
  * The followings are the available columns in table:
- * @property string $id
+ * @property integer $id
  * @property integer $event_id
- * @property integer $start_time
- * @property string $comments
+ * @property integer $lma_size_id
+ * @property integer $ett_type_id
+ * @property integer $ett_size_id
  *
  * The followings are the available model relations:
  *
@@ -33,14 +34,13 @@
  * @property Event $event
  * @property User $user
  * @property User $usermodified
- * @property OphCiAnaesthesiarecord_Drug_Dose $drugs
- * @property OphCiAnaesthesiarecord_Reading $readings
+ * @property OphCiAnaesthesiarecord_LMA_Size $lma_size
+ * @property OphCiAnaesthesiarecord_ETT_Type $ett_type
+ * @property OphCiAnaesthesiarecord_ETT_Size $ett_size
  */
 
-class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
+class Element_OphCiAnaesthesiarecord_Airway_Control extends BaseEventTypeElement
 {
-	public $intervals = 8;
-
 	/**
 	 * Returns the static model of the specified AR class.
 	 * @return the static model class
@@ -55,7 +55,7 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 	 */
 	public function tableName()
 	{
-		return 'et_ophcianaesthesiarecord_readings';
+		return 'et_ophcianaesthesiarecord_airway_control';
 	}
 
 	/**
@@ -66,12 +66,11 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('event_id, start_time, comments', 'safe'),
-			array('start_time, comments', 'required'),
-			array('readings', 'OneOf', 'drugs', 'readings'),
+			array('event_id, lma_size_id, ett_type_id, ett_size_id', 'safe'),
+			array('lma_size_id, ett_type_id, ett_size_id', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, event_id, start_time, comments', 'safe', 'on' => 'search'),
+			array('id, event_id, lma_size_id, ett_type_id, ett_size_id', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -88,8 +87,9 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'created_user_id'),
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
-			'drugs' => array(self::HAS_MANY, 'OphCiAnaesthesiarecord_Drug_Dose', 'element_id', 'order' => 'display_order'),
-			'readings' => array(self::HAS_MANY, 'OphCiAnaesthesiarecord_Reading', 'element_id', 'order' => 'display_order'),
+			'lma_size' => array(self::BELONGS_TO, 'OphCiAnaesthesiarecord_LMA_Size', 'lma_size_id'),
+			'ett_type' => array(self::BELONGS_TO, 'OphCiAnaesthesiarecord_ETT_Type', 'ett_type_id'),
+			'ett_size' => array(self::BELONGS_TO, 'OphCiAnaesthesiarecord_ETT_Size', 'ett_size_id'),
 		);
 	}
 
@@ -100,8 +100,9 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 	{
 		return array(
 			'id' => 'ID',
-			'event_id' => 'Event',
-			'comments' => 'Comments',
+			'lma_size_id' => 'LMA size',
+			'ett_type_id' => 'ETT type',
+			'ett_size_id' => 'ETT size',
 		);
 	}
 
@@ -117,93 +118,10 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id, true);
-		$criteria->compare('event_id', $this->event_id, true);
-		$criteria->compare('comments', $this->comments);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
-	}
-
-	public function setDefaultOptions()
-	{
-		$ts = time();
-
-		while (date('i',$ts) != '00' && date('i',$ts) != '30') {
-			$ts -= 60;
-		}
-
-		$this->start_time = date('H:i',$ts);
-	}
-
-	public function getItems() {
-		$items = array();
-
-		foreach (OphCiAnaesthesiarecord_Reading::model()->findAll(array('condition'=>'element_id=?','params'=>array($this->id),'order'=>'display_order')) as $reading) {
-			$items[$reading->display_order] = $reading;
-		}
-
-		foreach (OphCiAnaesthesiarecord_Drug_Dose::model()->findAll(array('condition'=>'element_id=?','params'=>array($this->id),'order'=>'display_order')) as $dose) {
-			$items[$dose->display_order] = $dose;
-		}
-
-		ksort($items);
-
-		return $items;
-	}
-
-	public function OneOf($attribute, $params)
-	{
-		$valid = false;
-
-		foreach ($params as $param) {
-			if ($this->$param) {
-				$valid = true;
-				break;
-			}
-		}
-
-		if ($valid === false) {
-			$this->addError($attribute, 'You must enter at least one drug or reading');
-		}
-	}
-
-	public function getStartTimeTS()
-	{
-		preg_match('/^([0-9]+)\:([0-9]+)/',$this->start_time,$m);
-
-		return mktime($m[1],$m[2],0,1,1,2012);
-	}
-
-	public function getDrugItem($drug_id, $offset)
-	{
-		$from = $this->startTimeTS + ($offset * 15 * 60);
-		$to = $this->startTimeTS + (($offset+1) * 15 * 60);
-
-		if ($dose = OphCiAnaesthesiarecord_Drug_Dose::model()->find('element_id=? and drug_id=? and dose_time >= ? and dose_time < ?',array($this->id,$drug_id,date('H:i',$from),date('H:i',$to)))) {
-			return $dose->dose;
-		}
-	}
-
-	public function getReadingItem($reading_type_id, $offset)
-	{
-		$from = $this->startTimeTS + ($offset * 15 * 60);
-		$to = $this->startTimeTS + (($offset+1) * 15 * 60);
-		
-		if ($reading = OphCiAnaesthesiarecord_Reading::model()->find('element_id=? and reading_type_id=? and reading_time >= ? and reading_time < ?',array($this->id,$reading_type_id,date('H:i',$from),date('H:i',$to)))) {
-			return $reading->value;
-		}
-	}
-
-	public function getTimeIntervals()
-	{
-		$times = array();
-
-		for ($i=0; $i<=$this->intervals; $i++) {
-			$times[] = date('H:i',($this->startTimeTS + ($i * 15 * 60)));
-		}
-
-		return $times;
 	}
 }
 ?>

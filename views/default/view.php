@@ -28,7 +28,7 @@
 <div>
 	<?php $this->renderDefaultElements($this->action->id)?>
 	<?php $this->renderOptionalElements($this->action->id)?>
-	<div class="cleartall"></div>
+	<div class="clearall"></div>
 </div>
 
 <?php $this->footer()?>

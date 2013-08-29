@@ -17,8 +17,22 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 ?>
-<?php $this->renderPartial(
-	'form_' . get_class($element),
-	array('element' => $element, 'data' => $data, 'form' => $form, 'ondemand' => @$ondemand),
-	false, false
-)?>
+
+<h4 class="elementTypeName"><?php echo $element->elementType->name?></h4>
+
+<table class="subtleWhite normalText">
+	<tbody>
+		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('side_id'))?></td>
+			<td><span class="big"><?php echo CHtml::encode($element->side->name)?></span></td>
+		</tr>
+		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('site_id'))?></td>
+			<td><span class="big"><?php echo CHtml::encode($element->site->name)?></span></td>
+		</tr>
+		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('cannula_size_id'))?></td>
+			<td><span class="big"><?php echo CHtml::encode($element->cannula_size->value)?>G</span></td>
+		</tr>
+	</tbody>
+</table>

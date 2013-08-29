@@ -26,7 +26,7 @@
 <h3 class="withEventIcon"><?php echo $this->event_type->name?></h3>
 
 <div>
-	<div class="cleartall"></div>
+	<div class="clearall"></div>
 </div>
 
 <div id="delete_event">

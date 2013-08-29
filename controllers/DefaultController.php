@@ -4,12 +4,29 @@ class DefaultController extends BaseEventTypeController
 {
 	public function actionCreate()
 	{
+		$this->setLADefaults();
+
 		parent::actionCreate();
 	}
 
 	public function actionUpdate($id)
 	{
+		$this->setLADefaults();
+
 		parent::actionUpdate($id);
+	}
+
+	public function setLADefaults()
+	{
+		$this->jsVars['OphCiAnaesthesiarecord_la_defaults'] = array();
+
+		foreach (OphCiAnaesthesiarecord_LA_Type::model()->findAll() as $type) {
+			$this->jsVars['OphCiAnaesthesiarecord_la_defaults'][$type->name] = array( 
+				'default_method_id' => $type->default_method_id,
+				'default_size_id' => $type->default_size_id,
+				'default_length_id' => $type->default_length_id,
+			);
+		}
 	}
 
 	public function actionView($id)
@@ -117,19 +134,21 @@ class DefaultController extends BaseEventTypeController
 	 */
 	protected function setPOSTManyToMany($element)
 	{
-		$drugs = array();
-		$readings = array();
+		if (get_class($element) == 'Element_OphCiAnaesthesiarecord_Readings') {
+			$drugs = array();
+			$readings = array();
 
-		foreach ($this->getItems($element) as $item) {
-			if (get_class($item) == 'OphCiAnaesthesiarecord_Reading') {
-				$readings[] = $item;
-			} else {
-				$drugs[] = $item;
+			foreach ($this->getItems($element) as $item) {
+				if (get_class($item) == 'OphCiAnaesthesiarecord_Reading') {
+					$readings[] = $item;
+				} else {
+					$drugs[] = $item;
+				}
 			}
-		}
 
-		$element->drugs = $drugs;
-		$element->readings = $readings;
+			$element->drugs = $drugs;
+			$element->readings = $readings;
+		}
 	}
 
 	/*

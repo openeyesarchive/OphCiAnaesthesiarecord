@@ -17,8 +17,18 @@
  * @license http://www.gnu.org/licenses/gpl-3.0.html The GNU General Public License V3.0
  */
 ?>
-<?php $this->renderPartial(
-	'form_' . get_class($element),
-	array('element' => $element, 'data' => $data, 'form' => $form, 'ondemand' => @$ondemand),
-	false, false
-)?>
+
+<h4 class="elementTypeName"><?php echo $element->elementType->name?></h4>
+
+<table class="subtleWhite normalText">
+	<tbody>
+		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('equipment_checked'))?></td>
+			<td><span class="big"><?php echo $element->equipment_checked ? 'Yes' : 'No'?></span></td>
+		</tr>
+		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('anaesthetic_type_id'))?></td>
+			<td><span class="big"><?php echo CHtml::encode($element->anaesthetic_type->name)?></span></td>
+		</tr>
+	</tbody>
+</table>
