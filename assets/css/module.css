@@ -29,3 +29,5 @@
 
 .anaesthesia_grid tr.times td { border: none; font-size: 11px; }
 .anaesthesia_grid tr.times span { margin-right: -109px; }
+
+span.unit { margin-left: 0; }

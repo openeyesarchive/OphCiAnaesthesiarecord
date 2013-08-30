@@ -20,21 +20,30 @@
 
 <div class="reading_row">
 	<span class="time">
-		<?php echo CHtml::textField("reading_time_".$item->display_order,(get_class($item) == 'OphCiAnaesthesiarecord_Reading' ? substr($item->reading_time,0,5) : substr($item->dose_time,0,5)),array('size'=>6))?>
+		<?php echo CHtml::textField("record_time_".$item->display_order,$item->record_time,array('size'=>6))?>
 	</span>
 	<span class="data_type">
-		<?php echo CHtml::dropDownList("data_type_".$item->display_order,(get_class($item) == 'OphCiAnaesthesiarecord_Reading' ? 'reading' : 'drug'),array('reading' => 'Reading','drug' => 'Drug'))?>
+		<?php echo CHtml::dropDownList("data_type_".$item->display_order,strtolower(preg_replace('/^OphCiAnaesthesiarecord_/','',get_class($item))),array('reading' => 'Reading','drug_dose' => 'Drug','gas_level' => 'Gas'))?>
 	</span>
-	<span class="reading_type"<?php if (get_class($item) == 'OphCiAnaesthesiarecord_Drug_Dose') {?> style="display: none;"<?php }?>>
-		<?php echo CHtml::dropDownList("reading_type_".$item->display_order,(get_class($item) == 'OphCiAnaesthesiarecord_Reading' ? $item->reading_type_id : ''),CHtml::listData(OphCiAnaesthesiarecord_Reading_Type::model()->findAll(array('order'=>'display_order')),'id','name'),array('empty'=>'- Reading type -'))?>
+	<span class="reading_type"<?php if (get_class($item) != 'OphCiAnaesthesiarecord_Reading') {?> style="display: none;"<?php }?>>
+		<?php echo CHtml::dropDownList("reading_type_".$item->display_order,(get_class($item) == 'OphCiAnaesthesiarecord_Reading' ? $item->item_id : ''),CHtml::listData(OphCiAnaesthesiarecord_Reading_Type::model()->findAll(array('order'=>'display_order')),'id','name'),array('empty'=>'- Reading type -','options'=>OphCiAnaesthesiarecord_Reading_Type::model()->getUnitAttributes()))?>
 		<label>Reading:</label>
 	</span>
-	<span class="drug"<?php if (get_class($item) == 'OphCiAnaesthesiarecord_Reading') {?> style="display: none;"<?php }?>>
-		<?php echo CHtml::dropDownList("drug_".$item->display_order,(get_class($item) == 'OphCiAnaesthesiarecord_Drug_Dose' ? $item->drug_id : ''),CHtml::listData(OphCiAnaesthesiarecord_Drug::model()->findAll(array('order'=>'display_order')),'id','name'),array('empty'=>'- Drug -'))?>
+	<span class="drug"<?php if (get_class($item) != 'OphCiAnaesthesiarecord_Drug_Dose') {?> style="display: none;"<?php }?>>
+		<?php echo CHtml::dropDownList("drug_".$item->display_order,(get_class($item) == 'OphCiAnaesthesiarecord_Drug_Dose' ? $item->item_id : ''),CHtml::listData(OphCiAnaesthesiarecord_Drug::model()->findAll(array('order'=>'display_order')),'id','name'),array('empty'=>'- Drug -','options'=>OphCiAnaesthesiarecord_Drug::model()->getUnitAttributes()))?>
 		<label>Dose:</label>
 	</span>
+	<span class="gas"<?php if (get_class($item) != 'OphCiAnaesthesiarecord_Gas_Level') {?> style="display: none;"<?php }?>>
+		<?php echo CHtml::dropDownList("gas_".$item->display_order,(get_class($item) == 'OphCiAnaesthesiarecord_Gas_Level' ? $item->item_id : ''),CHtml::listData(OphCiAnaesthesiarecord_Gas::model()->findAll(array('order'=>'display_order')),'id','name'),array('empty'=>'- Gas -','options'=>OphCiAnaesthesiarecord_Gas::model()->getUnitAttributes()))?>
+		<label>Level:</label>
+	</span>
 	<span class="value">
-		<?php echo CHtml::textField("reading_value_".$item->display_order,(get_class($item) == 'OphCiAnaesthesiarecord_Reading' ? $item->value : $item->dose),array('size'=>15))?>
+		<?php if ($item->item && $item->item->fieldType && $item->item->fieldType->name == 'Select') {?>
+			<?php echo CHtml::dropDownList("reading_value_".$item->display_order,$item->value,CHtml::listData(OphCiAnaesthesiarecord_Reading_Type_Field_Type_Option::model()->findAll(array('order'=>'display_order','condition'=>'reading_type_id=:reading_type_id','params'=>array(':reading_type_id'=>$item->item_id))),'name','name'))?>
+		<?php }else{?>
+			<?php echo CHtml::textField("reading_value_".$item->display_order,$item->value,array('size'=>10))?>
+		<?php }?>
+		<span class="unit" id="unit_<?php echo $item->display_order?>"><?php echo $item->item ? $item->item->unit : ''?></span>
 	</span>
 	<span class="remove">
 		<a href="#" class="remove_item">remove</a>

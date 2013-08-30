@@ -18,15 +18,15 @@
  */
 
 /**
- * This is the model class for table "ophcianaesthesiarecord_drug".
+ * This is the model class for table "ophcianaesthesiarecord_reading_type_field_type".
  *
  * The followings are the available columns in table:
  * @property integer $id
  * @property string $name
- * @property string $display_order
+ * @property string $comments
  */
 
-class OphCiAnaesthesiarecord_Drug extends BaseEventTypeElement
+class OphCiAnaesthesiarecord_Reading_Type_Field_Type extends BaseEventTypeElement
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -42,7 +42,7 @@ class OphCiAnaesthesiarecord_Drug extends BaseEventTypeElement
 	 */
 	public function tableName()
 	{
-		return 'ophcianaesthesiarecord_drug';
+		return 'ophcianaesthesiarecord_reading_type_field_type';
 	}
 
 	/**
@@ -56,7 +56,7 @@ class OphCiAnaesthesiarecord_Drug extends BaseEventTypeElement
 			array('name, display_order', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name', 'safe', 'on' => 'search'),
+			array('id, name, display_order', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -95,22 +95,10 @@ class OphCiAnaesthesiarecord_Drug extends BaseEventTypeElement
 
 		$criteria->compare('id', $this->id, true);
 		$criteria->compare('name', $this->name);
-		$criteria->compare('display_order', $this->display_order);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
-	}
-
-	public function getUnitAttributes()
-	{
-		$attributes = array();
-
-		foreach (OphCiAnaesthesiarecord_Drug::model()->findAll() as $type) {
-			$attributes[$type->id] = array('data-attr-unit' => $type->unit);
-		}
-		
-		return $attributes;
 	}
 }
 ?>

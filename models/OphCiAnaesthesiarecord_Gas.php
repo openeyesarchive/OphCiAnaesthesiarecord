@@ -18,15 +18,16 @@
  */
 
 /**
- * This is the model class for table "ophcianaesthesiarecord_drug".
+ * This is the model class for table "ophcianaesthesiarecord_gas".
  *
  * The followings are the available columns in table:
  * @property integer $id
  * @property string $name
  * @property string $display_order
+ * @property integer $field_type_id
  */
 
-class OphCiAnaesthesiarecord_Drug extends BaseEventTypeElement
+class OphCiAnaesthesiarecord_Gas extends BaseEventTypeElement
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -42,7 +43,7 @@ class OphCiAnaesthesiarecord_Drug extends BaseEventTypeElement
 	 */
 	public function tableName()
 	{
-		return 'ophcianaesthesiarecord_drug';
+		return 'ophcianaesthesiarecord_gas';
 	}
 
 	/**
@@ -106,7 +107,7 @@ class OphCiAnaesthesiarecord_Drug extends BaseEventTypeElement
 	{
 		$attributes = array();
 
-		foreach (OphCiAnaesthesiarecord_Drug::model()->findAll() as $type) {
+		foreach (OphCiAnaesthesiarecord_Gas::model()->findAll() as $type) {
 			$attributes[$type->id] = array('data-attr-unit' => $type->unit);
 		}
 		

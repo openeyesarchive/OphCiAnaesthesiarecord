@@ -1,0 +1,6 @@
+id,name,display_order
+1,Percentage,1
+2,Select,2
+3,Integer,3
+4,Temperature,4
+5,String,5

@@ -43,7 +43,7 @@ class DefaultController extends BaseEventTypeController
 	{
 		$reading = new OphCiAnaesthesiarecord_Reading;
 		$reading->display_order = @$_GET['n'];
-		$reading->reading_time = date('H:i');
+		$reading->record_time = date('H:i');
 
 		$this->renderPartial('_item',array('item'=>$reading));
 	}
@@ -55,18 +55,24 @@ class DefaultController extends BaseEventTypeController
 			$i = 1;
 
 			foreach ($_POST as $key => $value) {
-				if (preg_match('/^reading_time_([0-9]+)$/',$key,$m)) {
-					if ($_POST['data_type_'.$m[1]] == 'reading') {
-						$item = new OphCiAnaesthesiarecord_Reading;
-						$item->reading_type_id = $_POST['reading_type_'.$m[1]];
-						$item->value = $_POST['reading_value_'.$m[1]];
-						$item->reading_time = $_POST['reading_time_'.$m[1]];
-					} else {
-						$item = new OphCiAnaesthesiarecord_Drug_Dose;
-						$item->drug_id = $_POST['drug_'.$m[1]];
-						$item->dose = $_POST['reading_value_'.$m[1]];
-						$item->dose_time = $_POST['reading_time_'.$m[1]];
+				if (preg_match('/^record_time_([0-9]+)$/',$key,$m)) {
+					switch ($_POST['data_type_'.$m[1]]) {
+						case 'reading':
+							$item = new OphCiAnaesthesiarecord_Reading;
+							$item->item_id = $_POST['reading_type_'.$m[1]];
+							break;
+						case 'drug_dose':
+							$item = new OphCiAnaesthesiarecord_Drug_Dose;
+							$item->item_id = $_POST['drug_'.$m[1]];
+							break;
+						case 'gas_level':
+							$item = new OphCiAnaesthesiarecord_Gas_Level;
+							$item->item_id = $_POST['gas_'.$m[1]];
+							break;
 					}
+
+					$item->record_time = $_POST['record_time_'.$m[1]];
+					$item->value = $_POST['reading_value_'.$m[1]];
 					$item->display_order = $i++;
 
 					$items[] = $item;
@@ -90,10 +96,21 @@ class DefaultController extends BaseEventTypeController
 			if ($element->getElementType()->class_name == 'Element_OphCiAnaesthesiarecord_Readings') {
 				foreach ($this->getItems(null) as $item) {
 					if (!$item->validate()) {
-						$elementName = $element->getElementType()->name;
+						switch (get_class($item)) {
+							case 'OphCiAnaesthesiarecord_Reading':
+								$typeName = 'Reading'; break;
+							case 'OphCiAnaesthesiarecord_Drug_Dose':
+								$typeName = 'Drug dose'; break;
+							case 'OphCiAnaesthesiarecord_Gas_Level':
+								$typeName = 'Gas level'; break;
+						}
 						foreach ($item->getErrors() as $errormsgs) {
 							foreach ($errormsgs as $error) {
-								$errors[$elementName][] = $error;
+								if ($item->item) {
+									$errors[$typeName][] = "{$item->item->name}: $error";
+								} else {
+									$errors[$typeName][] = $error;
+								}
 							}
 						}
 					}
@@ -186,6 +203,23 @@ class DefaultController extends BaseEventTypeController
 					}
 				}
 			}
+		}
+	}
+
+	public function actionGetReadingFieldHTML()
+	{
+		if (!$type = OphCiAnaesthesiarecord_Reading_Type::model()->findByPk(@$_GET['reading_type_id'])) {
+			throw new Exception("Reading type not found: ".@$_GET['reading_type_id']);
+		}
+
+		$n = @$_GET['n'];
+
+		switch ($type->fieldType->name) {
+			case 'Select':
+				echo CHtml::dropDownList('reading_value_'.$n,'',CHtml::listData(OphCiAnaesthesiarecord_Reading_Type_Field_Type_Option::model()->findAll(array('order'=>'display_order','condition'=>'reading_type_id=:reading_type_id','params'=>array(':reading_type_id'=>$type->id))),'name','name'));
+				break;
+			default:
+				echo CHtml::textField("reading_value_".$n,'',array('size'=>10));
 		}
 	}
 }

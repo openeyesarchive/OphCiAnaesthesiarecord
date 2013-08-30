@@ -22,9 +22,9 @@
  *
  * The followings are the available columns in table:
  * @property integer $id
- * @property integer $drug_id
- * @property string $dose_time
- * @property string $dose
+ * @property integer $item_id
+ * @property string $record_time
+ * @property string $value
  */
 
 class OphCiAnaesthesiarecord_Drug_Dose extends BaseEventTypeElement
@@ -54,11 +54,12 @@ class OphCiAnaesthesiarecord_Drug_Dose extends BaseEventTypeElement
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('drug_id, dose_time, dose', 'safe'),
-			array('drug_id, dose_time, dose', 'required'),
+			array('item_id, record_time, value', 'safe'),
+			array('item_id, record_time, value', 'required'),
+			array('value', 'numerical', 'integerOnly' => false),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, drug_id, dose_time, dose', 'safe', 'on' => 'search'),
+			array('id, item_id, record_time, value', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -70,6 +71,7 @@ class OphCiAnaesthesiarecord_Drug_Dose extends BaseEventTypeElement
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'item' => array(self::BELONGS_TO, 'OphCiAnaesthesiarecord_Drug', 'item_id'),
 		);
 	}
 
@@ -80,9 +82,9 @@ class OphCiAnaesthesiarecord_Drug_Dose extends BaseEventTypeElement
 	{
 		return array(
 			'id' => 'ID',
-			'drug_id' => 'Drug',
-			'dose_time' => 'Time',
-			'dose' => 'Dose',
+			'item_id' => 'Drug',
+			'record_time' => 'Time',
+			'value' => 'Dose',
 		);
 	}
 
@@ -98,9 +100,9 @@ class OphCiAnaesthesiarecord_Drug_Dose extends BaseEventTypeElement
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id, true);
-		$criteria->compare('drug_id', $this->drug_id);
-		$criteria->compare('dose_time', $this->dose_time);
-		$criteria->compare('dose', $this->dose);
+		$criteria->compare('item_id', $this->item_id);
+		$criteria->compare('record_time', $this->record_time);
+		$criteria->compare('value', $this->value);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,

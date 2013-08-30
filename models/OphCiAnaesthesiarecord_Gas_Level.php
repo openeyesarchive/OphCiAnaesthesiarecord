@@ -18,15 +18,18 @@
  */
 
 /**
- * This is the model class for table "ophcianaesthesiarecord_drug".
+ * This is the model class for table "ophcianaesthesiarecord_gas_level".
  *
  * The followings are the available columns in table:
  * @property integer $id
- * @property string $name
- * @property string $display_order
+ * @property integer $event_id
+ * @property integer $item_id
+ * @property integer $field_type_id
+ * @property time $record_time
+ * @property string $value
  */
 
-class OphCiAnaesthesiarecord_Drug extends BaseEventTypeElement
+class OphCiAnaesthesiarecord_Gas_Level extends BaseEventTypeElement
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -42,7 +45,7 @@ class OphCiAnaesthesiarecord_Drug extends BaseEventTypeElement
 	 */
 	public function tableName()
 	{
-		return 'ophcianaesthesiarecord_drug';
+		return 'ophcianaesthesiarecord_gas_level';
 	}
 
 	/**
@@ -53,10 +56,10 @@ class OphCiAnaesthesiarecord_Drug extends BaseEventTypeElement
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, display_order', 'safe'),
+			array('item_id, field_type_id, record_time, value', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, name', 'safe', 'on' => 'search'),
+			array('id, item_id, field_type_id, record_time, value', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -68,6 +71,7 @@ class OphCiAnaesthesiarecord_Drug extends BaseEventTypeElement
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'item' => array(self::BELONGS_TO, 'OphCiAnaesthesiarecord_Gas', 'item_id'),
 		);
 	}
 
@@ -78,7 +82,6 @@ class OphCiAnaesthesiarecord_Drug extends BaseEventTypeElement
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
 		);
 	}
 
@@ -94,23 +97,10 @@ class OphCiAnaesthesiarecord_Drug extends BaseEventTypeElement
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id, true);
-		$criteria->compare('name', $this->name);
-		$criteria->compare('display_order', $this->display_order);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
-	}
-
-	public function getUnitAttributes()
-	{
-		$attributes = array();
-
-		foreach (OphCiAnaesthesiarecord_Drug::model()->findAll() as $type) {
-			$attributes[$type->id] = array('data-attr-unit' => $type->unit);
-		}
-		
-		return $attributes;
 	}
 }
 ?>

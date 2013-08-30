@@ -18,7 +18,7 @@
  */
 
 /**
- * This is the model class for table "ophcianaesthesiarecord_drug".
+ * This is the model class for table "ophcianaesthesiarecord_gas_field_type".
  *
  * The followings are the available columns in table:
  * @property integer $id
@@ -26,7 +26,7 @@
  * @property string $display_order
  */
 
-class OphCiAnaesthesiarecord_Drug extends BaseEventTypeElement
+class OphCiAnaesthesiarecord_Gas_Field_Type extends BaseEventTypeElement
 {
 	/**
 	 * Returns the static model of the specified AR class.
@@ -42,7 +42,7 @@ class OphCiAnaesthesiarecord_Drug extends BaseEventTypeElement
 	 */
 	public function tableName()
 	{
-		return 'ophcianaesthesiarecord_drug';
+		return 'ophcianaesthesiarecord_gas_field_type';
 	}
 
 	/**
@@ -100,17 +100,6 @@ class OphCiAnaesthesiarecord_Drug extends BaseEventTypeElement
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
-	}
-
-	public function getUnitAttributes()
-	{
-		$attributes = array();
-
-		foreach (OphCiAnaesthesiarecord_Drug::model()->findAll() as $type) {
-			$attributes[$type->id] = array('data-attr-unit' => $type->unit);
-		}
-		
-		return $attributes;
 	}
 }
 ?>

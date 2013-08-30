@@ -68,6 +68,7 @@ class OphCiAnaesthesiarecord_Reading_Type extends BaseEventTypeElement
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'fieldType' => array(self::BELONGS_TO, 'OphCiAnaesthesiarecord_Reading_Type_Field_Type', 'field_type_id'),
 		);
 	}
 
@@ -99,6 +100,17 @@ class OphCiAnaesthesiarecord_Reading_Type extends BaseEventTypeElement
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
+	}
+
+	public function getUnitAttributes()
+	{
+		$attributes = array();
+
+		foreach (OphCiAnaesthesiarecord_Reading_Type::model()->findAll() as $type) {
+			$attributes[$type->id] = array('data-attr-unit' => $type->unit);
+		}
+
+		return $attributes;
 	}
 }
 ?>

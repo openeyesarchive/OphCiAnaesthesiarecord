@@ -180,8 +180,8 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 		$from = $this->startTimeTS + ($offset * 15 * 60);
 		$to = $this->startTimeTS + (($offset+1) * 15 * 60);
 
-		if ($dose = OphCiAnaesthesiarecord_Drug_Dose::model()->find('element_id=? and drug_id=? and dose_time >= ? and dose_time < ?',array($this->id,$drug_id,date('H:i',$from),date('H:i',$to)))) {
-			return $dose->dose;
+		if ($dose = OphCiAnaesthesiarecord_Drug_Dose::model()->find('element_id=? and item_id=? and record_time >= ? and record_time < ?',array($this->id,$drug_id,date('H:i',$from),date('H:i',$to)))) {
+			return $dose->value;
 		}
 	}
 
@@ -190,7 +190,7 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 		$from = $this->startTimeTS + ($offset * 15 * 60);
 		$to = $this->startTimeTS + (($offset+1) * 15 * 60);
 		
-		if ($reading = OphCiAnaesthesiarecord_Reading::model()->find('element_id=? and reading_type_id=? and reading_time >= ? and reading_time < ?',array($this->id,$reading_type_id,date('H:i',$from),date('H:i',$to)))) {
+		if ($reading = OphCiAnaesthesiarecord_Reading::model()->find('element_id=? and item_id=? and record_time >= ? and record_time < ?',array($this->id,$reading_type_id,date('H:i',$from),date('H:i',$to)))) {
 			return $reading->value;
 		}
 	}

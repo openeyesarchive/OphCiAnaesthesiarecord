@@ -45,7 +45,7 @@ $(document).ready(function() {
 
 		var n = 1;
 
-		$('input[name^="reading_time_"]').map(function() {
+		$('input[name^="record_time_"]').map(function() {
 			var id = parseInt($(this).attr('name').match(/[0-9]+/));
 			if (id >= n) {
 				n = id+1;
@@ -64,12 +64,61 @@ $(document).ready(function() {
 	$('select[name^="data_type_"]').live('change',function(e) {
 		var n = $(this).attr('name').match(/[0-9]+/);
 
-		if ($(this).val() == 'drug') {
-			$('select[name="reading_type_'+n+'"]').parent().hide();
-			$('select[name="drug_'+n+'"]').parent().show();
+		switch ($(this).val()) {
+			case 'drug_dose':
+				$('select[name="reading_type_'+n+'"]').parent().hide();
+				$('select[name="drug_'+n+'"]').parent().show();
+				$('select[name="gas_'+n+'"]').parent().hide();
+				break;
+			case 'reading':
+				$('select[name="reading_type_'+n+'"]').parent().show();
+				$('select[name="drug_'+n+'"]').parent().hide();
+				$('select[name="gas_'+n+'"]').parent().hide();
+				break;
+			case 'gas_level':
+				$('select[name="reading_type_'+n+'"]').parent().hide();
+				$('select[name="drug_'+n+'"]').parent().hide();
+				$('select[name="gas_'+n+'"]').parent().show();
+				break;
+		}
+
+		$('#unit_'+n).text('');
+	});
+
+	$('select[name^="reading_type_"]').live('change',function(e) {
+		var n = $(this).attr('name').match(/[0-9]+/);
+		if ($(this).val() == '') {
+			$('#unit_'+n).text('');
 		} else {
-			$('select[name="reading_type_'+n+'"]').parent().show();
-			$('select[name="drug_'+n+'"]').parent().hide();
+			$('#unit_'+n).text($(this).children('option:selected').attr('data-attr-unit'));
+		}
+
+		var val = $(this).val();
+
+		$.ajax({
+			'type': 'GET',
+			'url': baseUrl+'/OphCiAnaesthesiarecord/default/getReadingFieldHTML?reading_type_id='+val+'&n='+n,
+			'success': function(html) {
+				$('#reading_value_'+n).replaceWith(html);
+			}
+		});
+	});
+
+	$('select[name^="drug_"]').live('change',function(e) {
+		var n = $(this).attr('id').match(/[0-9]+/);
+		if ($(this).val() == '') {
+			$('#unit_'+n).text('');
+		} else {
+			$('#unit_'+n).text($(this).children('option:selected').attr('data-attr-unit'));
+		}
+	});
+
+	$('select[name^="gas_"]').live('change',function(e) {
+		var n = $(this).attr('id').match(/[0-9]+/);
+		if ($(this).val() == '') {
+			$('#unit_'+n).text('');
+		} else {
+			$('#unit_'+n).text($(this).children('option:selected').attr('data-attr-unit'));
 		}
 	});
 

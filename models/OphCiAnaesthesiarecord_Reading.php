@@ -22,8 +22,8 @@
  *
  * The followings are the available columns in table:
  * @property integer $id
- * @property integer $reading_type_id
- * @property string $reading_time
+ * @property integer $item_id
+ * @property string $record_time
  * @property string $value
  * @property integer $display_order
  */
@@ -55,11 +55,11 @@ class OphCiAnaesthesiarecord_Reading extends BaseEventTypeElement
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('reading_type_id, reading_time, value, display_order', 'safe'),
-			array('reading_type_id, reading_time, value', 'required'),
+			array('item_id, record_time, value, display_order', 'safe'),
+			array('item_id, record_time, value', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, reading_type_id, reading_time, value, display_order', 'safe', 'on' => 'search'),
+			array('id, item_id, record_time, value, display_order', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -71,6 +71,7 @@ class OphCiAnaesthesiarecord_Reading extends BaseEventTypeElement
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'item' => array(self::BELONGS_TO, 'OphCiAnaesthesiarecord_Reading_Type', 'item_id'),
 		);
 	}
 
@@ -81,8 +82,8 @@ class OphCiAnaesthesiarecord_Reading extends BaseEventTypeElement
 	{
 		return array(
 			'id' => 'ID',
-			'reading_type_id' => 'Reading type',
-			'reading_time' => 'Time',
+			'item_id' => 'Reading type',
+			'record_time' => 'Time',
 			'value' => 'Reading',
 		);
 	}
@@ -99,14 +100,45 @@ class OphCiAnaesthesiarecord_Reading extends BaseEventTypeElement
 		$criteria = new CDbCriteria;
 
 		$criteria->compare('id', $this->id, true);
-		$criteria->compare('reading_type_id', $this->reading_type_id);
-		$criteria->compare('reading_time', $this->reading_time);
+		$criteria->compare('item_id', $this->item_id);
+		$criteria->compare('record_time', $this->record_time);
 		$criteria->compare('value', $this->value);
 		$criteria->compare('display_order', $this->display_order);
 
 		return new CActiveDataProvider(get_class($this), array(
 			'criteria' => $criteria,
 		));
+	}
+
+	public function beforeValidate()
+	{
+		if ($type = $this->item) {
+			if ($type->validation_regex) {
+				if (!preg_match($type->validation_regex,$this->value)) {
+					$this->addError('reading',"$type->validation_message");
+				}
+			} else {
+				switch ($type->fieldType->name) {
+					case 'Percentage':
+						if (!ctype_digit($this->value) || $this->value <0 || $this->value >100) {
+							$this->addError('reading','Must be 0-100');
+						}
+						break;
+					case 'Integer':
+						if (!ctype_digit($this->value)) {
+							$this->addError('reading','Must be an integer');
+						}
+						break;
+					case 'Temperature':
+						if (!ctype_digit($this->value) || $this->value < 15 || $this->value > 45) {
+							$this->addError('reading','Temperature must be in the range 15-45°C');
+						}
+						break;
+				}
+			}
+		}
+
+		return parent::beforeValidate();
 	}
 }
 ?>
