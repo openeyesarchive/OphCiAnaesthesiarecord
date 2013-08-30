@@ -212,6 +212,27 @@ $(document).ready(function() {
 		$('input[name="Element_OphCiAnaesthesiarecord_Local_Anaesthetic[la_size_id]"][value="'+OphCiAnaesthesiarecord_la_defaults[$(this).next('label').text()]['default_size_id']+'"]').attr('checked','checked');
 		$('input[name="Element_OphCiAnaesthesiarecord_Local_Anaesthetic[la_length_id]"][value="'+OphCiAnaesthesiarecord_la_defaults[$(this).next('label').text()]['default_length_id']+'"]').attr('checked','checked');
 	});
+
+	$('#add_all_readings').live('click',function(e) {
+		e.preventDefault();
+
+		var n = 1;
+
+		$('input[name^="record_time_"]').map(function() {
+			var id = parseInt($(this).attr('name').match(/[0-9]+/));
+			if (id >= n) {
+				n = id+1;
+			}
+		});
+
+		$.ajax({
+			'type': 'GET',
+			'url': baseUrl+'/OphCiAnaesthesiarecord/default/addAllReadings?n='+n,
+			'success': function(html) {
+				$('#items').append(html);
+			}
+		});
+	});
 });
 
 function ucfirst(str) { str += ''; var f = str.charAt(0).toUpperCase(); return f + str.substr(1); }

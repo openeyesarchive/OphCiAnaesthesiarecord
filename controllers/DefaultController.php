@@ -48,6 +48,18 @@ class DefaultController extends BaseEventTypeController
 		$this->renderPartial('_item',array('item'=>$reading));
 	}
 
+	public function actionAddAllReadings()
+	{
+		foreach (OphCiAnaesthesiarecord_Reading_Type::model()->findAll(array('order'=>'display_order')) as $i => $type) {
+			$reading = new OphCiAnaesthesiarecord_Reading;
+			$reading->item_id = $type->id;
+			$reading->display_order = (int)@$_GET['n'] + $i;
+			$reading->record_time = date('H:i');
+
+			$this->renderPartial('_item',array('item'=>$reading));
+		}
+	}
+
 	public function getItems($element) {
 		$items = array();
 

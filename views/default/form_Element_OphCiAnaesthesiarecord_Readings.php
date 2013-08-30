@@ -38,6 +38,10 @@
 			<button type="button" class="classy blue mini" id="add_item" name="add_item">
 				<span class="button-span button-span-blue">Add</span>
 			</button>
+			&nbsp;&nbsp;
+			<button type="button" class="classy blue mini" id="add_all_readings" name="add_all_readings">
+				<span class="button-span button-span-blue">Add all readings</span>
+			</button>
 		</div>
 	</div>
 

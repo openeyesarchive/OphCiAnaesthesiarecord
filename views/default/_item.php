@@ -20,7 +20,7 @@
 
 <div class="reading_row">
 	<span class="time">
-		<?php echo CHtml::textField("record_time_".$item->display_order,$item->record_time,array('size'=>6))?>
+		<?php echo CHtml::textField("record_time_".$item->display_order,substr($item->record_time,0,5),array('size'=>6))?>
 	</span>
 	<span class="data_type">
 		<?php echo CHtml::dropDownList("data_type_".$item->display_order,strtolower(preg_replace('/^OphCiAnaesthesiarecord_/','',get_class($item))),array('reading' => 'Reading','drug_dose' => 'Drug','gas_level' => 'Gas'))?>
@@ -38,7 +38,7 @@
 		<label>Level:</label>
 	</span>
 	<span class="value">
-		<?php if ($item->item && $item->item->fieldType && $item->item->fieldType->name == 'Select') {?>
+		<?php if ($item->item && isset($item->item->fieldType) && $item->item->fieldType && $item->item->fieldType->name == 'Select') {?>
 			<?php echo CHtml::dropDownList("reading_value_".$item->display_order,$item->value,CHtml::listData(OphCiAnaesthesiarecord_Reading_Type_Field_Type_Option::model()->findAll(array('order'=>'display_order','condition'=>'reading_type_id=:reading_type_id','params'=>array(':reading_type_id'=>$item->item_id))),'name','name'))?>
 		<?php }else{?>
 			<?php echo CHtml::textField("reading_value_".$item->display_order,$item->value,array('size'=>10))?>

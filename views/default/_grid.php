@@ -26,6 +26,14 @@
 			</td>
 		<?php }?>
 	</tr>
+	<?php foreach (OphCiAnaesthesiarecord_Gas::model()->findAll(array('order'=>'display_order')) as $gas) {?>
+		<tr>
+			<th><?php echo $gas->name?></th>
+			<?php for ($i=0;$i<$element->intervals;$i++) {?>
+				<td><?php echo $element->getGasItem($gas->id,$i)?></td>
+			<?php }?>
+		</tr>
+	<?php }?>
 	<?php foreach (OphCiAnaesthesiarecord_Drug::model()->findAll(array('order'=>'display_order')) as $drug) {?>
 		<tr>
 			<th><?php echo $drug->name?></th>
