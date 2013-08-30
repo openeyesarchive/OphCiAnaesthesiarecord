@@ -185,7 +185,10 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 		$to = $this->startTimeTS + (($offset+1) * 15 * 60);
 
 		if ($gas_level = OphCiAnaesthesiarecord_Gas_Level::model()->find('element_id=? and item_id=? and record_time >= ? and record_time < ?',array($this->id,$gas_id,date('H:i',$from),date('H:i',$to)))) {
-			return $gas_level->value.$gas_level->item->unit;
+			return array(
+				'colour' => dechex(255-$gas_level->value).dechex(255-$gas_level->value).'ff',
+				'level' => $gas_level->value.$gas_level->item->unit,
+			);
 		}
 	}
 

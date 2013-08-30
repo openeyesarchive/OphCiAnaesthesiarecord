@@ -29,8 +29,15 @@
 	<?php foreach (OphCiAnaesthesiarecord_Gas::model()->findAll(array('order'=>'display_order')) as $gas) {?>
 		<tr>
 			<th><?php echo $gas->name?></th>
-			<?php for ($i=0;$i<$element->intervals;$i++) {?>
-				<td><?php echo $element->getGasItem($gas->id,$i)?></td>
+			<?php for ($i=0;$i<$element->intervals;$i++) {
+				$gasValue = $element->getGasItem($gas->id,$i);
+				if ($gasValue) {
+					$lastColour = $gasValue['colour'];
+					?>
+					<td style="background: #<?php echo $gasValue['colour']?>"><?php echo $gasValue['level']?></td>
+				<?php }else{?>
+					<td style="background: #<?php echo $lastColour?>"></td>
+				<?php }?>
 			<?php }?>
 		</tr>
 	<?php }?>
