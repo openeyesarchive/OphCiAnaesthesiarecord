@@ -21,7 +21,7 @@
 <table class="anaesthesia_grid">
 	<tr class="times">
 		<?php foreach ($element->getTimeIntervals() as $time) {?>
-			<td align="right">
+			<td align="right" style="background: #fff">
 				<span><?php echo $time?></span>
 			</td>
 		<?php }?>
@@ -47,7 +47,7 @@
 		<tr>
 			<th><?php echo $drug->name?></th>
 			<?php for ($i=0;$i<$element->intervals;$i++) {?>
-				<td><?php echo $element->getDrugItem($drug->id,$i)?></td>
+				<td style="background: #fff"><?php echo $element->getDrugItem($drug->id,$i)?></td>
 			<?php }?>
 		</tr>
 	<?php }?>
@@ -55,7 +55,7 @@
 		<tr>
 			<th><?php echo $reading_type->name?></th>
 			<?php for ($i=0;$i<$element->intervals;$i++) {?>
-				<td><?php echo $element->getReadingItem($reading_type->id,$i)?></td>
+				<td style="background: #fff"><?php echo $element->getReadingItem($reading_type->id,$i)?></td>
 			<?php }?>
 		</tr>
 	<?php }?>

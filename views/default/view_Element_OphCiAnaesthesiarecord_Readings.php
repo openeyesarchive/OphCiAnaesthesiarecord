@@ -31,7 +31,7 @@
 			<td><span class="big"><?php echo CHtml::encode($element->comments)?></span></td>
 		</tr>
 		<tr>
-			<td colspan="2">
+			<td colspan="2" style="background: #fff">
 				<?php echo $this->renderPartial('_grid',array('element'=>$element))?>
 			</td>
 		</tr>
