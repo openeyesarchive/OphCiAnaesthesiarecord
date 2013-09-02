@@ -60,6 +60,18 @@ class DefaultController extends BaseEventTypeController
 		}
 	}
 
+	public function actionAddAllGases()
+	{
+		foreach (OphCiAnaesthesiarecord_Gas::model()->findAll(array('order'=>'display_order')) as $i => $type) {
+			$gas_level = new OphCiAnaesthesiarecord_Gas_Level;
+			$gas_level->item_id = $type->id;
+			$gas_level->display_order = (int)@$_GET['n'] + $i;
+			$gas_level->record_time = date('H:i');
+
+			$this->renderPartial('_item',array('item'=>$gas_level));
+		}
+	}
+
 	public function getItems($element) {
 		$items = array();
 

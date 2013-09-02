@@ -233,6 +233,27 @@ $(document).ready(function() {
 			}
 		});
 	});
+
+	$('#add_all_gases').live('click',function(e) {
+		e.preventDefault();
+
+		var n = 1;
+
+		$('input[name^="record_time_"]').map(function() {
+			var id = parseInt($(this).attr('name').match(/[0-9]+/));
+			if (id >= n) {
+				n = id+1;
+			}
+		});
+
+		$.ajax({
+			'type': 'GET',
+			'url': baseUrl+'/OphCiAnaesthesiarecord/default/addAllGases?n='+n,
+			'success': function(html) {
+				$('#items').append(html);
+			}
+		});
+	});
 });
 
 function ucfirst(str) { str += ''; var f = str.charAt(0).toUpperCase(); return f + str.substr(1); }
