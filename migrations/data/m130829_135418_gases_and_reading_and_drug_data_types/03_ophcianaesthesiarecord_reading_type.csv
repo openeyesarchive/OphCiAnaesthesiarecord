@@ -1,6 +1,6 @@
 id,name,display_order,unit,validation_regex,validation_message,field_type_id
 1,Heart rate,1,bpm,,,3
-2,Blood pressure,2,,/^[0-9]+\/[0-9]+$/,Must be in the format: 00/00,5
+2,Blood pressure,2,,/^[0-9]+\/[0-9]+$/,Must be in the format: 110/70,5
 3,ECG Rhythm,3,,,,2
 4,SaO2,4,%,,,1
 5,TV,5,ml,,,3

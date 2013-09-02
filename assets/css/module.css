@@ -26,10 +26,10 @@
 .reading_row label { display: inline-block; width: 4em; }
 
 .anaesthesia_grid { background: #fff; }
-.anaesthesia_grid th { border: 1px solid #000; color: #000 !important; background-color: #ccc; }
-.anaesthesia_grid td { border: 1px solid #000; width: 90px; text-align: center; }
+.anaesthesia_grid th { border: 1px solid #000; width: 90px; color: #000 !important; background-color: #ccc; }
+.anaesthesia_grid td { border: 1px solid #000; width: 3.6em; height: 1em; text-align: center; }
 
 .anaesthesia_grid tr.times td { border: none; font-size: 11px; }
-.anaesthesia_grid tr.times span { margin-right: -109px; }
+.anaesthesia_grid tr.times span { margin-right: -66px; }
 
 span.unit { margin-left: 0; }

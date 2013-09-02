@@ -20,9 +20,9 @@
 
 <table class="anaesthesia_grid">
 	<tr class="times">
-		<?php foreach ($element->getTimeIntervals() as $time) {?>
+		<?php foreach ($element->getTimeIntervals() as $i => $time) {?>
 			<td align="right" style="background: #fff">
-				<span><?php echo $time?></span>
+				<span<?php if ($i==0) {?> style="margin-right: -111px"<?php }?>><?php echo $time?></span>
 			</td>
 		<?php }?>
 	</tr>
