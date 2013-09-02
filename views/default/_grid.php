@@ -35,6 +35,8 @@
 					$lastColour = $gasValue['colour'];
 					?>
 					<td style="background: #<?php echo $gasValue['colour']?>"><?php echo $gasValue['level']?></td>
+				<?php }else if (!isset($lastColour)) {?>
+					<td style="background: #fff"></td>
 				<?php }else{?>
 					<td style="background: #<?php echo $lastColour?>"></td>
 				<?php }?>
