@@ -20,7 +20,8 @@
 #event_content h3.withEventIcon { background:transparent url(../img/medium.png) center left no-repeat; }
 
 .reading_row { margin-bottom: 10px; }
-.reading_row select { width: 12em; }
+.reading_row .data_type select { width: 12em; }
+.reading_row .reading_type select { width: 12em; }
 .reading_row span { margin-left: 10px; }
 .reading_row label { display: inline-block; width: 4em; }
 
