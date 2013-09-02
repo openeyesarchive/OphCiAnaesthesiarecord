@@ -102,5 +102,18 @@ class OphCiAnaesthesiarecord_Gas_Level extends BaseEventTypeElement
 			'criteria' => $criteria,
 		));
 	}
+
+	protected function beforeValidate()
+	{
+		if ($this->item->min !== null && $this->value < $this->item->min) {
+			$this->addError('gas level',"cannot be less than {$this->item->min}{$this->item->unit}");
+		}
+
+		if ($this->item->max !== null && $this->value > $this->item->max) {
+			$this->addError('gas level',"cannot be higher than {$this->item->max}{$this->item->unit}");
+		}
+
+		return parent::beforeValidate();
+	}
 }
 ?>

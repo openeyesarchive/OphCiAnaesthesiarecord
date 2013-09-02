@@ -25,6 +25,8 @@ class m130829_135418_gases_and_reading_and_drug_data_types extends OEMigration
 				'display_order' => 'int(10) unsigned NOT NULL',
 				'field_type_id' => 'int(10) unsigned NOT NULL',
 				'unit' => 'varchar(16) COLLATE utf8_bin NOT NULL',
+				'min' => 'tinyint(1) unsigned NULL',
+				'max' => 'tinyint(1) unsigned NULL',
 				'last_modified_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
 				'last_modified_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
 				'created_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',

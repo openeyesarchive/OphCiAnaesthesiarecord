@@ -1,4 +1,4 @@
-id,name,display_order,field_type_id,unit
-1,Oxygen,1,1,%
-2,Air/N2O,2,2,L/m
-3,Iso/Sev,3,2,L/m
+id,name,display_order,field_type_id,unit,min,max
+1,Oxygen,1,1,%,0,100
+2,Air/N2O,2,1,%,0,80
+3,Iso/Sev,3,1,%,0,8
