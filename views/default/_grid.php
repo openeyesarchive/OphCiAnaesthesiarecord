@@ -21,41 +21,65 @@
 <table class="anaesthesia_grid">
 	<tr class="times">
 		<?php foreach ($element->getTimeIntervals() as $i => $time) {?>
-			<td align="right" style="background: #fff">
-				<span<?php if ($i==0) {?> style="margin-right: -111px"<?php }?>><?php echo $time?></span>
+			<td align="right" style="background: #<?php echo ($mode == 'edit' ? 'dae6f1' : 'fff')?>">
+				<span<?php if ($i==0) {?> style="margin-right: -122px"<?php }?>><?php echo $time?></span>
 			</td>
 		<?php }?>
 	</tr>
-	<?php foreach (OphCiAnaesthesiarecord_Gas::model()->findAll(array('order'=>'display_order')) as $gas) {?>
+	<?php foreach (OphCiAnaesthesiarecord_Gas::model()->findAll(array('order'=>'display_order')) as $gas) {
+		$lastColour = '#fff';?>
 		<tr>
-			<th><?php echo $gas->name?></th>
+			<th data-attr-min="<?php echo $gas->min?>" data-attr-max="<?php echo $gas->max?>"><?php echo $gas->name?><?php if ($gas->unit) {?> (<?php echo $gas->unit?>)<?php }?></th>
 			<?php for ($i=0;$i<$element->intervals;$i++) {
-				$gasValue = $element->getGasItem($gas->id,$i);
-				if ($gasValue) {
+				$value = '';
+				if (($gasValue = $this->getGasItem($element,$gas,$i)) && strlen($gasValue['level']) >0) {
 					$lastColour = $gasValue['colour'];
+					$value = $gasValue['level'];
 					?>
-					<td style="background: #<?php echo $gasValue['colour']?>"><?php echo $gasValue['level']?></td>
+					<td style="background: <?php echo $gasValue['colour']?>">
 				<?php }else if (!isset($lastColour)) {?>
-					<td style="background: #fff"></td>
+					<td style="background: #fff">
 				<?php }else{?>
-					<td style="background: #<?php echo $lastColour?>"></td>
+					<td style="background: <?php echo $lastColour?>">
 				<?php }?>
+					<?php if ($mode == 'edit') {?>
+						<?php echo CHtml::textField('gas_level_'.$gas->id.'_'.$i,$value,array('size'=>6,'class'=>'gas_level'))?>
+					<?php }else{?>
+						<?php echo $value?>
+					<?php }?>
+				</td>
 			<?php }?>
 		</tr>
 	<?php }?>
 	<?php foreach (OphCiAnaesthesiarecord_Drug::model()->findAll(array('order'=>'display_order')) as $drug) {?>
 		<tr>
-			<th><?php echo $drug->name?></th>
+			<th><?php echo $drug->name?><?php if ($drug->unit) {?> (<?php echo $drug->unit?>)<?php }?></th>
 			<?php for ($i=0;$i<$element->intervals;$i++) {?>
-				<td style="background: #fff"><?php echo $element->getDrugItem($drug->id,$i)?></td>
+				<td style="background: #fff">
+					<?php if ($mode == 'edit') {?>
+						<?php echo CHtml::textField('drug_'.$drug->id.'_'.$i,$this->getDrugItem($element,$drug,$i),array('size'=>6))?>
+					<?php }else{?>
+						<?php echo $this->getDrugItem($element,$drug,$i)?></td>
+					<?php }?>
+				</td>
 			<?php }?>
 		</tr>
 	<?php }?>
 	<?php foreach (OphCiAnaesthesiarecord_Reading_Type::model()->findAll(array('order'=>'display_order')) as $reading_type) {?>
 		<tr>
-			<th><?php echo $reading_type->name?></th>
+			<th><?php echo $reading_type->name?><?php if ($reading_type->unit) {?> (<?php echo $reading_type->unit?>)<?php }?></th>
 			<?php for ($i=0;$i<$element->intervals;$i++) {?>
-				<td style="background: #fff"><?php echo $element->getReadingItem($reading_type->id,$i)?></td>
+				<td style="background: #fff">
+					<?php if ($mode == 'edit') {?>
+						<?php if ($reading_type->fieldType && $reading_type->fieldType->name == 'Select') {?>
+							<?php echo CHtml::dropDownList("reading_".$reading_type->id.'_'.$i,$this->getReadingItem($element,$reading_type,$i),CHtml::listData(OphCiAnaesthesiarecord_Reading_Type_Field_Type_Option::model()->findAll(array('order'=>'display_order','condition'=>'reading_type_id=:reading_type_id','params'=>array(':reading_type_id'=>$reading_type->id))),'name','name'))?>
+						<?php }else{?>
+							<?php echo CHtml::textField('reading_'.$reading_type->id.'_'.$i,$this->getReadingItem($element,$reading_type,$i),array('size'=>6))?>
+						<?php }?>
+					<?php }else{?>
+						<?php echo $this->getReadingItem($element,$reading_type,$i)?></td>
+					<?php }?>
+				</td>
 			<?php }?>
 		</tr>
 	<?php }?>

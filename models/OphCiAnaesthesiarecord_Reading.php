@@ -55,11 +55,11 @@ class OphCiAnaesthesiarecord_Reading extends BaseEventTypeElement
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('item_id, record_time, value, display_order', 'safe'),
-			array('item_id, record_time, value', 'required'),
+			array('item_id, offset, value', 'safe'),
+			array('item_id, offset, value', 'required'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, item_id, record_time, value, display_order', 'safe', 'on' => 'search'),
+			array('id, item_id, offset, value, display_order', 'safe', 'on' => 'search'),
 		);
 	}
 

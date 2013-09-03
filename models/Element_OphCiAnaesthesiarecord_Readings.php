@@ -179,41 +179,6 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 		return mktime($m[1],$m[2],0,1,1,2012);
 	}
 
-	public function getGasItem($gas_id, $offset)
-	{
-		$from = $this->startTimeTS + ($offset * 15 * 60);
-		$to = $this->startTimeTS + (($offset+1) * 15 * 60);
-
-		if ($gas_level = OphCiAnaesthesiarecord_Gas_Level::model()->find('element_id=? and item_id=? and record_time >= ? and record_time < ?',array($this->id,$gas_id,date('H:i',$from),date('H:i',$to)))) {
-			$col_value = dechex(255 - ($gas_level->value * (155 / $gas_level->item->max)));
-
-			return array(
-				'colour' => $col_value.$col_value.'ff',
-				'level' => $gas_level->value.$gas_level->item->unit,
-			);
-		}
-	}
-
-	public function getDrugItem($drug_id, $offset)
-	{
-		$from = $this->startTimeTS + ($offset * 15 * 60);
-		$to = $this->startTimeTS + (($offset+1) * 15 * 60);
-
-		if ($dose = OphCiAnaesthesiarecord_Drug_Dose::model()->find('element_id=? and item_id=? and record_time >= ? and record_time < ?',array($this->id,$drug_id,date('H:i',$from),date('H:i',$to)))) {
-			return $dose->value.$dose->item->unit;
-		}
-	}
-
-	public function getReadingItem($reading_type_id, $offset)
-	{
-		$from = $this->startTimeTS + ($offset * 15 * 60);
-		$to = $this->startTimeTS + (($offset+1) * 15 * 60);
-		
-		if ($reading = OphCiAnaesthesiarecord_Reading::model()->find('element_id=? and item_id=? and record_time >= ? and record_time < ?',array($this->id,$reading_type_id,date('H:i',$from),date('H:i',$to)))) {
-			return $reading->value.$reading->item->unit;
-		}
-	}
-
 	public function getTimeIntervals()
 	{
 		$times = array();

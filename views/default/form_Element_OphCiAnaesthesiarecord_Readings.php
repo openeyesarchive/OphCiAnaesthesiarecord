@@ -31,21 +31,8 @@
 		<div class="label">Data items:</div>
 		<div class="data">
 			<div id="items">
-				<?php foreach ($this->getItems($element) as $item) {?>
-					<?php echo $this->renderPartial('_item',array('item'=>$item))?>
-				<?php }?>
+				<?php echo $this->renderPartial('_grid',array('element'=>$element,'mode'=>'edit'))?>
 			</div>
-			<button type="button" class="classy blue mini" id="add_item" name="add_item">
-				<span class="button-span button-span-blue">Add</span>
-			</button>
-			&nbsp;&nbsp;
-			<button type="button" class="classy blue mini" id="add_all_readings" name="add_all_readings">
-				<span class="button-span button-span-blue">Add all readings</span>
-			</button>
-			&nbsp;&nbsp;
-			<button type="button" class="classy blue mini" id="add_all_gases" name="add_all_gases">
-				<span class="button-span button-span-blue">Add all gases</span>
-			</button>
 		</div>
 	</div>
 

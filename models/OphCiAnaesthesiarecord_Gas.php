@@ -114,5 +114,18 @@ class OphCiAnaesthesiarecord_Gas extends BaseEventTypeElement
 		
 		return $attributes;
 	}
+
+	public function getColourForValue($value) {
+		if (strlen($value) >0) {
+			if ((ctype_digit($value) || is_int($value)) && ($value >= $this->min and $value <= $this->max)) {
+				$col = dechex(255 - ($value * (155 / $this->max)));
+				return '#'.$col.$col.'ff';
+			} else {
+				return '#f99';
+			}
+		}
+
+		return '#fff';
+	}
 }
 ?>

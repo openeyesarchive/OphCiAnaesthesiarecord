@@ -39,67 +39,29 @@ class DefaultController extends BaseEventTypeController
 		parent::actionPrint($id);
 	}
 
-	public function actionAddItem()
-	{
-		$reading = new OphCiAnaesthesiarecord_Reading;
-		$reading->display_order = @$_GET['n'];
-		$reading->record_time = date('H:i');
-
-		$this->renderPartial('_item',array('item'=>$reading));
-	}
-
-	public function actionAddAllReadings()
-	{
-		foreach (OphCiAnaesthesiarecord_Reading_Type::model()->findAll(array('order'=>'display_order')) as $i => $type) {
-			$reading = new OphCiAnaesthesiarecord_Reading;
-			$reading->item_id = $type->id;
-			$reading->display_order = (int)@$_GET['n'] + $i;
-			$reading->record_time = date('H:i');
-
-			$this->renderPartial('_item',array('item'=>$reading));
-		}
-	}
-
-	public function actionAddAllGases()
-	{
-		foreach (OphCiAnaesthesiarecord_Gas::model()->findAll(array('order'=>'display_order')) as $i => $type) {
-			$gas_level = new OphCiAnaesthesiarecord_Gas_Level;
-			$gas_level->item_id = $type->id;
-			$gas_level->display_order = (int)@$_GET['n'] + $i;
-			$gas_level->record_time = date('H:i');
-
-			$this->renderPartial('_item',array('item'=>$gas_level));
-		}
-	}
-
 	public function getItems($element) {
 		$items = array();
 
 		if (!empty($_POST)) {
-			$i = 1;
-
 			foreach ($_POST as $key => $value) {
-				if (preg_match('/^record_time_([0-9]+)$/',$key,$m)) {
-					switch ($_POST['data_type_'.$m[1]]) {
-						case 'reading':
-							$item = new OphCiAnaesthesiarecord_Reading;
-							$item->item_id = $_POST['reading_type_'.$m[1]];
-							break;
-						case 'drug_dose':
-							$item = new OphCiAnaesthesiarecord_Drug_Dose;
-							$item->item_id = $_POST['drug_'.$m[1]];
-							break;
-						case 'gas_level':
-							$item = new OphCiAnaesthesiarecord_Gas_Level;
-							$item->item_id = $_POST['gas_'.$m[1]];
-							break;
+				if (is_string($value) && strlen($value) >0) {
+					if (preg_match('/^gas_level_([0-9]+)_([0-9]+)$/',$key,$m)) {
+						$item = new OphCiAnaesthesiarecord_Gas_Level;
+					} elseif (preg_match('/^drug_([0-9]+)_([0-9]+)$/',$key,$m)) {
+						$item = new OphCiAnaesthesiarecord_Drug_Dose;
+					} elseif (preg_match('/^reading_([0-9]+)_([0-9]+)$/',$key,$m)) {
+						$item = new OphCiAnaesthesiarecord_Reading;
 					}
 
-					$item->record_time = $_POST['record_time_'.$m[1]];
-					$item->value = $_POST['reading_value_'.$m[1]];
-					$item->display_order = $i++;
+					if (isset($item)) {
+						$item->item_id = $m[1];
+						$item->offset = $m[2];
+						$item->value = $value;
 
-					$items[] = $item;
+						$items[] = $item;
+
+						unset($item);
+					}
 				}
 			}
 		} else if ($element->id) {
@@ -244,6 +206,47 @@ class DefaultController extends BaseEventTypeController
 				break;
 			default:
 				echo CHtml::textField("reading_value_".$n,'',array('size'=>10));
+		}
+	}
+
+	public function getGasItem($element, $gas, $offset)
+	{
+		if (!empty($_POST)) {
+			$value = @$_POST['gas_level_'.$gas->id.'_'.$offset];
+
+			return array(
+				'colour' => $gas->getColourForValue($value),
+				'level' => $value,
+			);
+		} else if ($element->id && $gas_level = OphCiAnaesthesiarecord_Gas_Level::model()->find('element_id=? and item_id=? and offset=?',array($element->id,$gas->id,$offset))) {
+			$value = $gas_level->value;
+
+			return array(
+				'colour' => $gas->getColourForValue($value),
+				'level' => $value,
+			);
+		}
+	}
+
+	public function getDrugItem($element, $drug, $offset)
+	{
+		if (!empty($_POST)) {
+			return @$_POST['drug_'.$drug->id.'_'.$offset];
+		}
+
+		if ($element->id && $dose = OphCiAnaesthesiarecord_Drug_Dose::model()->find('element_id=? and item_id=? and offset=?',array($element->id,$drug->id,$offset))) {
+			return $dose->value;
+		}
+	}
+
+	public function getReadingItem($element, $reading_type, $offset)
+	{
+		if (!empty($_POST)) {
+			return @$_POST['reading_'.$reading_type->id.'_'.$offset];
+		}
+
+		if ($element->id && $reading = OphCiAnaesthesiarecord_Reading::model()->find('element_id=? and item_id=? and offset=?',array($element->id,$reading_type->id,$offset))) {
+			return $reading->value;
 		}
 	}
 }

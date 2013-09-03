@@ -56,10 +56,10 @@ class OphCiAnaesthesiarecord_Gas_Level extends BaseEventTypeElement
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('item_id, field_type_id, record_time, value', 'safe'),
+			array('item_id, field_type_id, offset, value', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, item_id, field_type_id, record_time, value', 'safe', 'on' => 'search'),
+			array('id, item_id, field_type_id, offset, value', 'safe', 'on' => 'search'),
 		);
 	}
 

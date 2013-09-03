@@ -54,12 +54,12 @@ class OphCiAnaesthesiarecord_Drug_Dose extends BaseEventTypeElement
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('item_id, record_time, value', 'safe'),
-			array('item_id, record_time, value', 'required'),
+			array('item_id, offset, value', 'safe'),
+			array('item_id, offset, value', 'required'),
 			array('value', 'numerical', 'integerOnly' => false),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, item_id, record_time, value', 'safe', 'on' => 'search'),
+			array('id, item_id, offset, value', 'safe', 'on' => 'search'),
 		);
 	}
 

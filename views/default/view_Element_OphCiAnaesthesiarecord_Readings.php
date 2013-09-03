@@ -32,7 +32,7 @@
 		</tr>
 		<tr>
 			<td colspan="2" style="background: #fff">
-				<?php echo $this->renderPartial('_grid',array('element'=>$element))?>
+				<?php echo $this->renderPartial('_grid',array('element'=>$element,'mode'=>'view'))?>
 			</td>
 		</tr>
 	</tbody>
