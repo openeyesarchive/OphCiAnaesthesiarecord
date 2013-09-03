@@ -72,7 +72,7 @@
 				<td style="background: #fff">
 					<?php if ($mode == 'edit') {?>
 						<?php if ($reading_type->fieldType && $reading_type->fieldType->name == 'Select') {?>
-							<?php echo CHtml::dropDownList("reading_".$reading_type->id.'_'.$i,$this->getReadingItem($element,$reading_type,$i),CHtml::listData(OphCiAnaesthesiarecord_Reading_Type_Field_Type_Option::model()->findAll(array('order'=>'display_order','condition'=>'reading_type_id=:reading_type_id','params'=>array(':reading_type_id'=>$reading_type->id))),'name','name'))?>
+							<?php echo CHtml::dropDownList("reading_".$reading_type->id.'_'.$i,$this->getReadingItem($element,$reading_type,$i),CHtml::listData(OphCiAnaesthesiarecord_Reading_Type_Field_Type_Option::model()->findAll(array('order'=>'display_order','condition'=>'reading_type_id=:reading_type_id','params'=>array(':reading_type_id'=>$reading_type->id))),'name','name'),array('empty'=>''))?>
 						<?php }else{?>
 							<?php echo CHtml::textField('reading_'.$reading_type->id.'_'.$i,$this->getReadingItem($element,$reading_type,$i),array('size'=>6))?>
 						<?php }?>
