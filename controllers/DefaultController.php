@@ -192,23 +192,6 @@ class DefaultController extends BaseEventTypeController
 		}
 	}
 
-	public function actionGetReadingFieldHTML()
-	{
-		if (!$type = OphCiAnaesthesiarecord_Reading_Type::model()->findByPk(@$_GET['reading_type_id'])) {
-			throw new Exception("Reading type not found: ".@$_GET['reading_type_id']);
-		}
-
-		$n = @$_GET['n'];
-
-		switch ($type->fieldType->name) {
-			case 'Select':
-				echo CHtml::dropDownList('reading_value_'.$n,'',CHtml::listData(OphCiAnaesthesiarecord_Reading_Type_Field_Type_Option::model()->findAll(array('order'=>'display_order','condition'=>'reading_type_id=:reading_type_id','params'=>array(':reading_type_id'=>$type->id))),'name','name'));
-				break;
-			default:
-				echo CHtml::textField("reading_value_".$n,'',array('size'=>10));
-		}
-	}
-
 	public function getGasItem($element, $gas, $offset)
 	{
 		if (!empty($_POST)) {
