@@ -311,7 +311,20 @@ $(document).ready(function() {
 		var max = parseInt($(this).parent().parent().children('th').attr('data-attr-max'))
 		var val = parseInt($(this).val());
 
-		if ($(this).val().match(/^[0-9]+$/)) {
+		if ($(this).val().length == 0) {
+			var n = parseInt($(this).attr('name').match(/[0-9]+$/));
+			var name = $(this).attr('name').replace(/[0-9]+$/,'');
+
+			var col = '#fff';
+
+			while (n >= 1) {
+				n -= 1;
+				if ($('#'+name+n).parent().css('background')) {
+					var col = $('#'+name+n).parent().css('background');
+					break;
+				}
+			}
+		} else if ($(this).val().match(/^[0-9]+$/)) {
 			if (val < min || val > max) {
 				var col = '#f66';
 			} else {

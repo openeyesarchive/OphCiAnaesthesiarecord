@@ -84,3 +84,28 @@
 		</tr>
 	<?php }?>
 </table>
+<?php if ($mode == 'view') {?>
+	<div class="eyedraw_grid">
+		<div class="grid_numbers">
+			<?php for ($i=220;$i>=0;$i-=10) {?>
+				<div<?php if ($i==220) {?> style="margin-top: 0"<?php }?>><?php echo $i?></div>
+			<?php }?>
+		</div>
+		<?php
+		$this->widget('application.modules.eyedraw.OEEyeDrawWidget', array(
+			'doodleToolBarArray' => array(
+			),
+			'onReadyCommandArray' => array(
+				array('addDoodle',array('RecordGrid')),
+				array('deselectDoodles', array()),
+			),
+			'idSuffix' => 'Grid',
+			'mode' => 'edit',
+			'width' => 605,
+			'height' => 500,
+			'model' => $element,
+			'attribute' => 'eyedraw',
+			'toolbar' => false,
+		))?>
+	</div>
+<?php }?>

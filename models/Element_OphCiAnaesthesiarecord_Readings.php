@@ -189,5 +189,86 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 
 		return $times;
 	}
+
+	public function getEyedraw()
+	{
+		$topleft = array(-531,-470);
+
+		$width = 251;
+		$height = 86;
+
+		$eyedraw = array(
+			array(
+				'version' => 1.1,
+				'subclass' => 'RecordGrid',
+				'numberCellsHorizontal' => 8,
+				'numberCellsVertical' => 22,
+				'order' => 0,
+			),
+		/*);
+
+		for ($i=0;$i<8;$i++) {
+			for ($j=0; $j<22; $j++) {
+				array_push($eyedraw,array(
+					'version' => 1.1,
+					'subclass' => 'Pulse',
+					'originX' => $topleft[0] + ($i * $width),
+					'originY' => $topleft[1] + ($j * $height),
+					'value' => 120,
+					'order' => 1,
+				));
+			}
+		}*/
+
+			array(
+				'version' => 1.1,
+				'subclass' => 'Pulse',
+				'originX' => -531,
+				'originY' => -470,
+				'value' => 80,
+				'order' => 1,
+			),
+			array(
+				'version' => 1.1,
+				'subclass' => 'Pulse',
+				'originX' => -229,
+				'originY' => 295,
+				'value' => 80,
+				'order' => 1,
+			),
+			array(
+				'version' => 1.1,
+				'subclass' => 'Pulse',
+				'originX' => -229,
+				'originY' => 250,
+				'value' => 80,
+				'order' => 1,
+			),
+			array(
+				'version' => 1.1,
+				'subclass' => 'BPReading',
+				'originX' => -1201,
+				'originY' => 0,
+				'value' => 120,
+				'stolic' => 'sys',
+				'order' => 2,
+			),
+			array(
+				'version' => 1.1,
+				'subclass' => 'BPReading',
+				'originX' => -1201,
+				'originY' => 40,
+				'value' => 120,
+				'stolic' => 'dia',
+				'order' => 2,
+			),
+		);
+
+		return json_encode($eyedraw);
+	}
 }
 ?>
+
+
+
+
