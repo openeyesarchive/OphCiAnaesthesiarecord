@@ -130,7 +130,7 @@ class OphCiAnaesthesiarecord_Reading extends BaseEventTypeElement
 						}
 						break;
 					case 'Temperature':
-						if (!ctype_digit($this->value) || $this->value < 15 || $this->value > 45) {
+						if (!preg_match('/^[0-9]+(\.[0-9]+)?$/',$this->value) || $this->value < 15 || $this->value > 45) {
 							$this->addError('reading','Temperature must be in the range 15-45°C');
 						}
 						break;
