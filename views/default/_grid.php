@@ -84,7 +84,7 @@
 		</tr>
 	<?php }?>
 </table>
-<?php if ($mode == 'view') {?>
+<?php /*if ($mode == 'view') {?>
 	<div class="eyedraw_grid">
 		<div class="grid_numbers">
 			<?php for ($i=220;$i>=0;$i-=10) {?>
@@ -108,4 +108,4 @@
 			'toolbar' => false,
 		))?>
 	</div>
-<?php }?>
+<?php }*/?>
