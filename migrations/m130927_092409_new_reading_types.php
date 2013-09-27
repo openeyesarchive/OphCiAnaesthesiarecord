@@ -24,20 +24,44 @@ class m130927_092409_new_reading_types extends CDbMigration
 		$this->addColumn('et_ophcianaesthesiarecord_readings','surgery_start_time','time NOT NULL');
 		$this->addColumn('et_ophcianaesthesiarecord_readings','surgery_end_time','time NOT NULL');
 
-		$this->addColumn('et_ophcianaesthesiarecord_readings','transfer_sao2','varchar(32) COLLATE utf8_bin NOT NULL');
-		$this->addColumn('et_ophcianaesthesiarecord_readings','transfer_hr','varchar(32) COLLATE utf8_bin NOT NULL');
-		$this->addColumn('et_ophcianaesthesiarecord_readings','transfer_bp','varchar(32) COLLATE utf8_bin NOT NULL');
-		$this->addColumn('et_ophcianaesthesiarecord_readings','transfer_rr','varchar(32) COLLATE utf8_bin NOT NULL');
-		$this->addColumn('et_ophcianaesthesiarecord_readings','transfer_temp','varchar(32) COLLATE utf8_bin NOT NULL');
+		$event_type = Yii::app()->db->createCommand()->select("*")->from("event_type")->where("class_name = :class_name",array(":class_name"=>"OphCiAnaesthesiarecord"))->queryRow();
+
+		$this->insert('element_type',array('name'=>'Post-op','class_name'=>'Element_OphCiAnaesthesiarecord_PostOp','event_type_id'=>$event_type['id'],'display_order'=>50,'default'=>1));
+
+		$this->dropColumn('et_ophcianaesthesiarecord_readings','comments');
+
+		$this->createTable('et_ophcianaesthesiarecord_postop', array(
+				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
+				'event_id' => 'int(10) unsigned NOT NULL',
+				'transfer_sao2' => 'varchar(32) COLLATE utf8_bin NOT NULL',
+				'transfer_hr' => 'varchar(32) COLLATE utf8_bin NOT NULL',
+				'transfer_bp' => 'varchar(32) COLLATE utf8_bin NOT NULL',
+				'transfer_rr' => 'varchar(32) COLLATE utf8_bin NOT NULL',
+				'transfer_temp' => 'varchar(32) COLLATE utf8_bin NOT NULL',
+				'comments' => 'text COLLATE utf8_bin DEFAULT \'\'',
+				'last_modified_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
+				'last_modified_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
+				'created_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
+				'created_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
+				'PRIMARY KEY (`id`)',
+				'KEY `et_ophcianaesthesiarecord_postop_lmui_fk` (`last_modified_user_id`)',
+				'KEY `et_ophcianaesthesiarecord_postop_cui_fk` (`created_user_id`)',
+				'KEY `et_ophcianaesthesiarecord_postop_ev_fk` (`event_id`)',
+				'CONSTRAINT `et_ophcianaesthesiarecord_postop_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
+				'CONSTRAINT `et_ophcianaesthesiarecord_postop_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
+				'CONSTRAINT `et_ophcianaesthesiarecord_postop_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)',
+			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
 	}
 
 	public function down()
 	{
-		$this->dropColumn('et_ophcianaesthesiarecord_readings','transfer_temp');
-		$this->dropColumn('et_ophcianaesthesiarecord_readings','transfer_rr');
-		$this->dropColumn('et_ophcianaesthesiarecord_readings','transfer_bp');
-		$this->dropColumn('et_ophcianaesthesiarecord_readings','transfer_hr');
-		$this->dropColumn('et_ophcianaesthesiarecord_readings','transfer_sao2');
+		$this->dropTable('et_ophcianaesthesiarecord_postop');
+
+		$this->addColumn('et_ophcianaesthesiarecord_readings','comments','text COLLATE utf8_bin');
+
+		$event_type = Yii::app()->db->createCommand()->select("*")->from("event_type")->where("class_name = :class_name",array(":class_name"=>"OphCiAnaesthesiarecord"))->queryRow();
+
+		$this->delete('element_type',"event_type_id = {$event_type['id']} and class_name = 'Element_OphCiAnaesthesiarecord_PostOp'");
 
 		$this->dropColumn('et_ophcianaesthesiarecord_readings','surgery_end_time');
 		$this->dropColumn('et_ophcianaesthesiarecord_readings','surgery_start_time');

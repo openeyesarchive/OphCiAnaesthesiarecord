@@ -23,33 +23,12 @@
 	data-element-type-class="<?php echo $element->elementType->class_name?>"
 	data-element-type-name="<?php echo $element->elementType->name?>"
 	data-element-display-order="<?php echo $element->elementType->display_order?>"<?php if (@$ondemand) {?> style="display: none"<?php }?>>
-	<h4 class="elementTypeName"><?php echo $element->elementType->name; ?></h4>
+	<h4 class="elementTypeName">Vital signs at transfer of care</h4>
 
-	<div id="div_Element_OphCiAnaesthesiarecord_Readings" class="eventDetail">
-		<div class="label">Data items:</div>
-		<div class="data">
-			<div id="items">
-				<?php echo $this->renderPartial('_grid',array('element'=>$element,'mode'=>'edit'))?>
-			</div>
-		</div>
-	</div>
-
-	<div id="div_Element_OphCiAnaesthesiarecord_Readings_anaesthesia_start_time" class="eventDetail">
-		<div class="label"><?php echo $element->getAttributeLabel('anaesthesia_start_time')?>:</div>
-		<div class="data">
-			<?php echo CHtml::activeTextField($element,'anaesthesia_start_time',array('size'=>6))?>
-			<div class="OphCiAnaesthesiarecord_extra_label">
-				<?php echo $element->getAttributeLabel('anaesthesia_end_time')?>:
-			</div>
-			<?php echo CHtml::activeTextField($element,'anaesthesia_end_time',array('size'=>6))?>
-			<div class="OphCiAnaesthesiarecord_extra_label">
-				<?php echo $element->getAttributeLabel('surgery_start_time')?>:
-			</div>
-			<?php echo CHtml::activeTextField($element,'surgery_start_time',array('size'=>6))?>
-			<div class="OphCiAnaesthesiarecord_extra_label">
-				<?php echo $element->getAttributeLabel('surgery_end_time')?>:
-			</div>
-			<?php echo CHtml::activeTextField($element,'surgery_end_time',array('size'=>6))?>
-		</div>
-	</div>
+	<?php echo $form->textField($element,'transfer_sao2',array('size'=>6))?>
+	<?php echo $form->textField($element,'transfer_hr',array('size'=>6))?>
+	<?php echo $form->textField($element,'transfer_bp',array('size'=>6))?>
+	<?php echo $form->textField($element,'transfer_rr',array('size'=>6))?>
+	<?php echo $form->textField($element,'transfer_temp',array('size'=>6))?>
+	<?php echo $form->textArea($element, 'comments', array('rows' => 6, 'cols' => 80,'sublabel'=>'(Including diet & IV fluids)'))?>
 </div>

@@ -18,30 +18,33 @@
  */
 ?>
 
-<h4 class="elementTypeName"><?php echo $element->elementType->name?></h4>
+<h4 class="elementTypeName">Vital signs at transfer of care</h4>
 
 <table class="subtleWhite normalText">
 	<tbody>
 		<tr>
-			<td colspan="2" style="background: #fff">
-				<?php echo $this->renderPartial('_grid',array('element'=>$element,'mode'=>'view'))?>
-			</td>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('transfer_sao2'))?>:</td>
+			<td><span class="big"><?php echo CHtml::encode($element->transfer_sao2)?></span></td>
 		</tr>
 		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('anaesthesia_start_time'))?>:</td>
-			<td><span class="big"><?php echo CHtml::encode(substr($element->anaesthesia_start_time,0,5))?></span></td>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('transfer_hr'))?>:</td>
+			<td><span class="big"><?php echo CHtml::encode($element->transfer_hr)?></span></td>
 		</tr>
 		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('anaesthesia_end_time'))?>:</td>
-			<td><span class="big"><?php echo CHtml::encode(substr($element->anaesthesia_end_time,0,5))?></span></td>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('transfer_bp'))?>:</td>
+			<td><span class="big"><?php echo CHtml::encode($element->transfer_bp)?></span></td>
 		</tr>
 		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('surgery_start_time'))?>:</td>
-			<td><span class="big"><?php echo CHtml::encode(substr($element->surgery_start_time,0,5))?></span></td>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('transfer_rr'))?>:</td>
+			<td><span class="big"><?php echo CHtml::encode($element->transfer_rr)?></span></td>
 		</tr>
 		<tr>
-			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('surgery_end_time'))?>:</td>
-			<td><span class="big"><?php echo CHtml::encode(substr($element->surgery_end_time,0,5))?></span></td>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('transfer_temp'))?>:</td>
+			<td><span class="big"><?php echo CHtml::encode($element->transfer_temp)?></span></td>
+		</tr>
+		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('comments'))?>:</td>
+			<td><span class="big"><?php echo CHtml::encode($element->comments)?></span></td>
 		</tr>
 	</tbody>
 </table>

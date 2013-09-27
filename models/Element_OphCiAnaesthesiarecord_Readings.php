@@ -66,12 +66,12 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('event_id, anaesthesia_start_time, anaesthesia_end_time, surgery_start_time, surgery_end_time, comments', 'safe'),
-			array('anaesthesia_start_time, anaesthesia_end_time, surgery_start_time, surgery_end_time, comments', 'required'),
+			array('event_id, anaesthesia_start_time, anaesthesia_end_time, surgery_start_time, surgery_end_time', 'safe'),
+			array('anaesthesia_start_time, anaesthesia_end_time, surgery_start_time, surgery_end_time', 'required'),
 			array('readings', 'OneOf', 'drugs', 'readings'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, event_id, anaesthesia_start_time, comments', 'safe', 'on' => 'search'),
+			array('id, event_id, anaesthesia_start_time', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -103,9 +103,9 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 			'event_id' => 'Event',
 			'comments' => 'Post operative orders',
 			'anaesthesia_start_time' => 'Anaesthesia start time',
-			'anaesthesia_end_time' => 'Anaesthesia end time',
+			'anaesthesia_end_time' => 'End time',
 			'surgery_start_time' => 'Surgery start time',
-			'surgery_end_time' => 'Surgery end time',
+			'surgery_end_time' => 'End time',
 		);
 	}
 
@@ -274,9 +274,13 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 
 		return json_encode($eyedraw);
 	}
+
+	protected function afterFind()
+	{
+		$this->anaesthesia_start_time = substr($this->anaesthesia_start_time,0,5);
+		$this->anaesthesia_end_time = substr($this->anaesthesia_end_time,0,5);
+		$this->surgery_start_time = substr($this->surgery_start_time,0,5);
+		$this->surgery_end_time = substr($this->surgery_end_time,0,5);
+	}
 }
 ?>
-
-
-
-
