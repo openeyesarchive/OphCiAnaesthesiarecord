@@ -23,7 +23,7 @@
  * The followings are the available columns in table:
  * @property string $id
  * @property integer $event_id
- * @property integer $start_time
+ * @property integer $anaesthesia_start_time
  * @property string $comments
  *
  * The followings are the available model relations:
@@ -66,12 +66,12 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('event_id, start_time, comments', 'safe'),
-			array('start_time, comments', 'required'),
+			array('event_id, anaesthesia_start_time, anaesthesia_end_time, surgery_start_time, surgery_end_time, comments', 'safe'),
+			array('anaesthesia_start_time, anaesthesia_end_time, surgery_start_time, surgery_end_time, comments', 'required'),
 			array('readings', 'OneOf', 'drugs', 'readings'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, event_id, start_time, comments', 'safe', 'on' => 'search'),
+			array('id, event_id, anaesthesia_start_time, comments', 'safe', 'on' => 'search'),
 		);
 	}
 
@@ -101,7 +101,11 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 		return array(
 			'id' => 'ID',
 			'event_id' => 'Event',
-			'comments' => 'Comments',
+			'comments' => 'Post operative orders',
+			'anaesthesia_start_time' => 'Anaesthesia start time',
+			'anaesthesia_end_time' => 'Anaesthesia end time',
+			'surgery_start_time' => 'Surgery start time',
+			'surgery_end_time' => 'Surgery end time',
 		);
 	}
 
@@ -133,7 +137,7 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 			$ts -= 60;
 		}
 
-		$this->start_time = date('H:i',$ts);
+		$this->anaesthesia_start_time = date('H:i',$ts);
 	}
 
 	public function getItems() {
@@ -174,7 +178,11 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 
 	public function getStartTimeTS()
 	{
-		preg_match('/^([0-9]+)\:([0-9]+)/',$this->start_time,$m);
+		if (!empty($_POST)) {
+			preg_match('/^([0-9]+)\:([0-9]+)/',$_POST['Element_OphCiAnaesthesiarecord_Readings']['anaesthesia_start_time'],$m);
+		} else {
+			preg_match('/^([0-9]+)\:([0-9]+)/',$this->anaesthesia_start_time,$m);
+		}
 
 		return mktime($m[1],$m[2],0,1,1,2012);
 	}

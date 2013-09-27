@@ -25,8 +25,6 @@
 	data-element-display-order="<?php echo $element->elementType->display_order?>"<?php if (@$ondemand) {?> style="display: none"<?php }?>>
 	<h4 class="elementTypeName"><?php echo $element->elementType->name; ?></h4>
 
-	<?php echo $form->timeField($element,'start_time',array('size'=>6))?>
-
 	<div id="div_Element_OphCiAnaesthesiarecord_Readings" class="eventDetail">
 		<div class="label">Data items:</div>
 		<div class="data">
@@ -36,5 +34,10 @@
 		</div>
 	</div>
 
-	<?php echo $form->textArea($element, 'comments', array('rows' => 6, 'cols' => 80))?>
+	<?php echo $form->timeField($element,'anaesthesia_start_time',array('size'=>6))?>
+	<?php echo $form->timeField($element,'anaesthesia_end_time',array('size'=>6))?>
+	<?php echo $form->timeField($element,'surgery_start_time',array('size'=>6))?>
+	<?php echo $form->timeField($element,'surgery_end_time',array('size'=>6))?>
+
+	<?php echo $form->textArea($element, 'comments', array('rows' => 6, 'cols' => 80,'sublabel'=>'(Including diet & IV fluids)'))?>
 </div>
