@@ -37,19 +37,19 @@
 	<div id="div_Element_OphCiAnaesthesiarecord_Readings_anaesthesia_start_time" class="eventDetail">
 		<div class="label"><?php echo $element->getAttributeLabel('anaesthesia_start_time')?>:</div>
 		<div class="data">
-			<?php echo CHtml::activeTextField($element,'anaesthesia_start_time',array('size'=>6))?>
+			<?php echo $form->textField($element,'anaesthesia_start_time',array('size'=>6,'nowrapper'=>true))?>
 			<div class="OphCiAnaesthesiarecord_extra_label">
 				<?php echo $element->getAttributeLabel('anaesthesia_end_time')?>:
 			</div>
-			<?php echo CHtml::activeTextField($element,'anaesthesia_end_time',array('size'=>6))?>
+			<?php echo $form->textField($element,'anaesthesia_end_time',array('size'=>6,'nowrapper'=>true))?>
 			<div class="OphCiAnaesthesiarecord_extra_label">
 				<?php echo $element->getAttributeLabel('surgery_start_time')?>:
 			</div>
-			<?php echo CHtml::activeTextField($element,'surgery_start_time',array('size'=>6))?>
+			<?php echo $form->textField($element,'surgery_start_time',array('size'=>6,'nowrapper'=>true))?>
 			<div class="OphCiAnaesthesiarecord_extra_label">
 				<?php echo $element->getAttributeLabel('surgery_end_time')?>:
 			</div>
-			<?php echo CHtml::activeTextField($element,'surgery_end_time',array('size'=>6))?>
+			<?php echo $form->textField($element,'surgery_end_time',array('size'=>6,'nowrapper'=>true))?>
 		</div>
 	</div>
 </div>
