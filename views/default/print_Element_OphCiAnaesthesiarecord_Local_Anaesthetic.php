@@ -18,24 +18,25 @@
  */
 ?>
 
-<?php
-	$this->breadcrumbs=array($this->module->id);
-	$this->header();
-?>
+<h4 class="elementTypeName"><?php echo $element->elementType->name?></h4>
 
-<h3 class="withEventIcon"><?php echo $this->event_type->name?></h3>
-
-<?php
-if ($this->canPrint()) {
-	$this->event_actions[] = EventAction::button('Print', 'print');
-}
-$this->renderPartial('//patient/event_actions');
-?>
-
-<div>
-	<?php $this->renderDefaultElements($this->action->id)?>
-	<?php $this->renderOptionalElements($this->action->id)?>
-	<div class="clearall"></div>
-</div>
-
-<?php $this->footer()?>
+<table class="subtleWhite normalText">
+	<tbody>
+		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('la_type_id'))?></td>
+			<td><span class="big"><?php echo CHtml::encode($element->la_type->name)?></span></td>
+		</tr>
+		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('la_method_id'))?></td>
+			<td><span class="big"><?php echo CHtml::encode($element->la_method->name)?></span></td>
+		</tr>
+		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('la_size_id'))?></td>
+			<td><span class="big"><?php echo CHtml::encode($element->la_size->value)?>G</span></td>
+		</tr>
+		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('la_length_id'))?></td>
+			<td><span class="big"><?php echo CHtml::encode($element->la_length->value)?>"</span></td>
+		</tr>
+	</tbody>
+</table>

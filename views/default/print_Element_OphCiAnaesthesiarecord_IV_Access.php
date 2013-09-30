@@ -18,24 +18,21 @@
  */
 ?>
 
-<?php
-	$this->breadcrumbs=array($this->module->id);
-	$this->header();
-?>
+<h4 class="elementTypeName"><?php echo $element->elementType->name?></h4>
 
-<h3 class="withEventIcon"><?php echo $this->event_type->name?></h3>
-
-<?php
-if ($this->canPrint()) {
-	$this->event_actions[] = EventAction::button('Print', 'print');
-}
-$this->renderPartial('//patient/event_actions');
-?>
-
-<div>
-	<?php $this->renderDefaultElements($this->action->id)?>
-	<?php $this->renderOptionalElements($this->action->id)?>
-	<div class="clearall"></div>
-</div>
-
-<?php $this->footer()?>
+<table class="subtleWhite normalText">
+	<tbody>
+		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('side_id'))?></td>
+			<td><span class="big"><?php echo CHtml::encode($element->side->name)?></span></td>
+		</tr>
+		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('site_id'))?></td>
+			<td><span class="big"><?php echo CHtml::encode($element->site->name)?></span></td>
+		</tr>
+		<tr>
+			<td width="30%"><?php echo CHtml::encode($element->getAttributeLabel('cannula_size_id'))?></td>
+			<td><span class="big"><?php echo CHtml::encode($element->cannula_size->value)?>G</span></td>
+		</tr>
+	</tbody>
+</table>

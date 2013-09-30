@@ -351,6 +351,10 @@ $(document).ready(function() {
 			n += 1;
 		}
 	});
+
+	handleButton($('#et_print'),function(e) {
+		printIFrameUrl(OE_print_url,{});
+	});
 });
 
 function ucfirst(str) { str += ''; var f = str.charAt(0).toUpperCase(); return f + str.substr(1); }
