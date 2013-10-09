@@ -355,6 +355,26 @@ $(document).ready(function() {
 	handleButton($('#et_print'),function(e) {
 		printIFrameUrl(OE_print_url,{});
 	});
+
+	$('#anaesthesia_start_time_now').die('click').live('click',function(e) {
+		e.preventDefault();
+		$('#Element_OphCiAnaesthesiarecord_Readings_anaesthesia_start_time').val(OphCiAnaesthesiarecord_TimeNow());
+	});
+
+	$('#anaesthesia_end_time_now').die('click').live('click',function(e) {
+		e.preventDefault();
+		$('#Element_OphCiAnaesthesiarecord_Readings_anaesthesia_end_time').val(OphCiAnaesthesiarecord_TimeNow());
+	});
+
+	$('#surgery_start_time_now').die('click').live('click',function(e) {
+		e.preventDefault();
+		$('#Element_OphCiAnaesthesiarecord_Readings_surgery_start_time').val(OphCiAnaesthesiarecord_TimeNow());
+	});
+
+	$('#surgery_end_time_now').die('click').live('click',function(e) {
+		e.preventDefault();
+		$('#Element_OphCiAnaesthesiarecord_Readings_surgery_end_time').val(OphCiAnaesthesiarecord_TimeNow());
+	});
 });
 
 function ucfirst(str) { str += ''; var f = str.charAt(0).toUpperCase(); return f + str.substr(1); }
@@ -363,4 +383,20 @@ function eDparameterListener(_drawing) {
 	if (_drawing.selectedDoodle != null) {
 		// handle event
 	}
+}
+
+function OphCiAnaesthesiarecord_TimeNow() {
+	var d = new Date;
+
+	var h = String(d.getHours());
+	var m = String(d.getMinutes());
+
+	if (h.length <2) {
+		h = "0"+h;
+	}
+	if (m.length <2) {
+		m = "0"+m;
+	}
+
+	return h+":"+m;
 }

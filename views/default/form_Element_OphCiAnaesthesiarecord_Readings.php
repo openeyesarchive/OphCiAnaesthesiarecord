@@ -38,18 +38,22 @@
 		<div class="label"><?php echo $element->getAttributeLabel('anaesthesia_start_time')?>:</div>
 		<div class="data">
 			<?php echo $form->textField($element,'anaesthesia_start_time',array('size'=>6,'nowrapper'=>true))?>
+			<a href="#" id="anaesthesia_start_time_now">now</a>
 			<div class="OphCiAnaesthesiarecord_extra_label">
 				<?php echo $element->getAttributeLabel('anaesthesia_end_time')?>:
 			</div>
 			<?php echo $form->textField($element,'anaesthesia_end_time',array('size'=>6,'nowrapper'=>true))?>
+			<a href="#" id="anaesthesia_end_time_now">now</a>
 			<div class="OphCiAnaesthesiarecord_extra_label">
 				<?php echo $element->getAttributeLabel('surgery_start_time')?>:
 			</div>
 			<?php echo $form->textField($element,'surgery_start_time',array('size'=>6,'nowrapper'=>true))?>
+			<a href="#" id="surgery_start_time_now">now</a>
 			<div class="OphCiAnaesthesiarecord_extra_label">
 				<?php echo $element->getAttributeLabel('surgery_end_time')?>:
 			</div>
 			<?php echo $form->textField($element,'surgery_end_time',array('size'=>6,'nowrapper'=>true))?>
+			<a href="#" id="surgery_end_time_now">now</a>
 		</div>
 	</div>
 </div>
