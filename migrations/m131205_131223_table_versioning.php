@@ -909,58 +909,32 @@ CREATE TABLE `ophcianaesthesiarecord_site_version` (
 	public function down()
 	{
 		$this->dropColumn('ophcianaesthesiarecord_anaesthetic_type','deleted');
-		$this->dropColumn('ophcianaesthesiarecord_anaesthetic_type_version','deleted');
 		$this->dropColumn('ophcianaesthesiarecord_drug','deleted');
-		$this->dropColumn('ophcianaesthesiarecord_drug_version','deleted');
 		$this->dropColumn('ophcianaesthesiarecord_drug_dose','deleted');
-		$this->dropColumn('ophcianaesthesiarecord_drug_dose_version','deleted');
 		$this->dropColumn('ophcianaesthesiarecord_ett_size','deleted');
-		$this->dropColumn('ophcianaesthesiarecord_ett_size_version','deleted');
 		$this->dropColumn('ophcianaesthesiarecord_ett_type','deleted');
-		$this->dropColumn('ophcianaesthesiarecord_ett_type_version','deleted');
 		$this->dropColumn('ophcianaesthesiarecord_gas','deleted');
-		$this->dropColumn('ophcianaesthesiarecord_gas_version','deleted');
 		$this->dropColumn('ophcianaesthesiarecord_gas_field_type','deleted');
-		$this->dropColumn('ophcianaesthesiarecord_gas_field_type_version','deleted');
 		$this->dropColumn('ophcianaesthesiarecord_gas_level','deleted');
-		$this->dropColumn('ophcianaesthesiarecord_gas_level_version','deleted');
 		$this->dropColumn('ophcianaesthesiarecord_iv_cannula_size','deleted');
-		$this->dropColumn('ophcianaesthesiarecord_iv_cannula_size_version','deleted');
 		$this->dropColumn('ophcianaesthesiarecord_la_length','deleted');
-		$this->dropColumn('ophcianaesthesiarecord_la_length_version','deleted');
 		$this->dropColumn('ophcianaesthesiarecord_la_method','deleted');
-		$this->dropColumn('ophcianaesthesiarecord_la_method_version','deleted');
 		$this->dropColumn('ophcianaesthesiarecord_la_size','deleted');
-		$this->dropColumn('ophcianaesthesiarecord_la_size_version','deleted');
 		$this->dropColumn('ophcianaesthesiarecord_la_type','deleted');
-		$this->dropColumn('ophcianaesthesiarecord_la_type_version','deleted');
 		$this->dropColumn('ophcianaesthesiarecord_lma_size','deleted');
-		$this->dropColumn('ophcianaesthesiarecord_lma_size_version','deleted');
 		$this->dropColumn('ophcianaesthesiarecord_reading','deleted');
-		$this->dropColumn('ophcianaesthesiarecord_reading_version','deleted');
 		$this->dropColumn('ophcianaesthesiarecord_reading_type','deleted');
-		$this->dropColumn('ophcianaesthesiarecord_reading_type_version','deleted');
 		$this->dropColumn('ophcianaesthesiarecord_reading_type_field_type','deleted');
-		$this->dropColumn('ophcianaesthesiarecord_reading_type_field_type_version','deleted');
 		$this->dropColumn('ophcianaesthesiarecord_reading_type_field_type_option','deleted');
-		$this->dropColumn('ophcianaesthesiarecord_reading_type_field_type_option_version','deleted');
 		$this->dropColumn('ophcianaesthesiarecord_side','deleted');
-		$this->dropColumn('ophcianaesthesiarecord_side_version','deleted');
 		$this->dropColumn('ophcianaesthesiarecord_site','deleted');
-		$this->dropColumn('ophcianaesthesiarecord_site_version','deleted');
 
 		$this->dropColumn('et_ophcianaesthesiarecord_airway_control','deleted');
-		$this->dropColumn('et_ophcianaesthesiarecord_airway_control_version','deleted');
 		$this->dropColumn('et_ophcianaesthesiarecord_general','deleted');
-		$this->dropColumn('et_ophcianaesthesiarecord_general_version','deleted');
 		$this->dropColumn('et_ophcianaesthesiarecord_iv_access','deleted');
-		$this->dropColumn('et_ophcianaesthesiarecord_iv_access_version','deleted');
 		$this->dropColumn('et_ophcianaesthesiarecord_local_anaesthetic','deleted');
-		$this->dropColumn('et_ophcianaesthesiarecord_local_anaesthetic_version','deleted');
 		$this->dropColumn('et_ophcianaesthesiarecord_postop','deleted');
-		$this->dropColumn('et_ophcianaesthesiarecord_postop_version','deleted');
 		$this->dropColumn('et_ophcianaesthesiarecord_readings','deleted');
-		$this->dropColumn('et_ophcianaesthesiarecord_readings_version','deleted');
 
 		$this->dropTable('et_ophcianaesthesiarecord_airway_control_version');
 		$this->dropTable('et_ophcianaesthesiarecord_general_version');
