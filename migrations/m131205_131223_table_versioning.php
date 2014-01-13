@@ -28,7 +28,7 @@ CREATE TABLE `et_ophcianaesthesiarecord_airway_control_version` (
 	CONSTRAINT `acv_et_ophcianaesthesiarecord_airway_control_size_fk` FOREIGN KEY (`lma_size_id`) REFERENCES `ophcianaesthesiarecord_lma_size` (`id`),
 	CONSTRAINT `acv_et_ophcianaesthesiarecord_airway_control_ett_type_fk` FOREIGN KEY (`ett_type_id`) REFERENCES `ophcianaesthesiarecord_ett_type` (`id`),
 	CONSTRAINT `acv_et_ophcianaesthesiarecord_airway_control_ett_size_fk` FOREIGN KEY (`ett_size_id`) REFERENCES `ophcianaesthesiarecord_ett_size` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('et_ophcianaesthesiarecord_airway_control_version','id','int(10) unsigned NOT NULL');
@@ -62,7 +62,7 @@ CREATE TABLE `et_ophcianaesthesiarecord_general_version` (
 	CONSTRAINT `acv_et_ophcianaesthesiarecord_general_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophcianaesthesiarecord_general_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
 	CONSTRAINT `acv_et_ophcianaesthesiarecord_general_at_fk` FOREIGN KEY (`anaesthetic_type_id`) REFERENCES `ophcianaesthesiarecord_anaesthetic_type` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('et_ophcianaesthesiarecord_general_version','id','int(10) unsigned NOT NULL');
@@ -101,7 +101,7 @@ CREATE TABLE `et_ophcianaesthesiarecord_iv_access_version` (
 	CONSTRAINT `acv_et_ophcianaesthesiarecord_anaesthetic_can_fk` FOREIGN KEY (`cannula_size_id`) REFERENCES `ophcianaesthesiarecord_iv_cannula_size` (`id`),
 	CONSTRAINT `acv_et_ophcianaesthesiarecord_anaesthetic_sit_fk` FOREIGN KEY (`site_id`) REFERENCES `ophcianaesthesiarecord_site` (`id`),
 	CONSTRAINT `acv_et_ophcianaesthesiarecord_anaesthetic_sid_fk` FOREIGN KEY (`side_id`) REFERENCES `ophcianaesthesiarecord_side` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('et_ophcianaesthesiarecord_iv_access_version','id','int(10) unsigned NOT NULL');
@@ -143,7 +143,7 @@ CREATE TABLE `et_ophcianaesthesiarecord_local_anaesthetic_version` (
 	CONSTRAINT `acv_et_ophcianaesthesiarecord_local_anaesthetic_lam_fk` FOREIGN KEY (`la_method_id`) REFERENCES `ophcianaesthesiarecord_la_method` (`id`),
 	CONSTRAINT `acv_et_ophcianaesthesiarecord_local_anaesthetic_lts_fk` FOREIGN KEY (`la_size_id`) REFERENCES `ophcianaesthesiarecord_la_size` (`id`),
 	CONSTRAINT `acv_et_ophcianaesthesiarecord_local_anaesthetic_lli_fk` FOREIGN KEY (`la_length_id`) REFERENCES `ophcianaesthesiarecord_la_length` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('et_ophcianaesthesiarecord_local_anaesthetic_version','id','int(10) unsigned NOT NULL');
@@ -162,12 +162,12 @@ CREATE TABLE `et_ophcianaesthesiarecord_local_anaesthetic_version` (
 CREATE TABLE `et_ophcianaesthesiarecord_postop_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 	`event_id` int(10) unsigned NOT NULL,
-	`transfer_sao2` varchar(32) COLLATE utf8_bin NOT NULL,
-	`transfer_hr` varchar(32) COLLATE utf8_bin NOT NULL,
-	`transfer_bp` varchar(32) COLLATE utf8_bin NOT NULL,
-	`transfer_rr` varchar(32) COLLATE utf8_bin NOT NULL,
-	`transfer_temp` varchar(32) COLLATE utf8_bin NOT NULL,
-	`comments` text COLLATE utf8_bin,
+	`transfer_sao2` varchar(32) NOT NULL,
+	`transfer_hr` varchar(32) NOT NULL,
+	`transfer_bp` varchar(32) NOT NULL,
+	`transfer_rr` varchar(32) NOT NULL,
+	`transfer_temp` varchar(32) NOT NULL,
+	`comments` text,
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
 	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
@@ -179,7 +179,7 @@ CREATE TABLE `et_ophcianaesthesiarecord_postop_version` (
 	CONSTRAINT `acv_et_ophcianaesthesiarecord_postop_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophcianaesthesiarecord_postop_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophcianaesthesiarecord_postop_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('et_ophcianaesthesiarecord_postop_version','id','int(10) unsigned NOT NULL');
@@ -213,7 +213,7 @@ CREATE TABLE `et_ophcianaesthesiarecord_readings_version` (
 	CONSTRAINT `acv_et_ophcianaesthesiarecord_readings_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_et_ophcianaesthesiarecord_readings_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`),
 	CONSTRAINT `acv_et_ophcianaesthesiarecord_readings_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('et_ophcianaesthesiarecord_readings_version','id','int(10) unsigned NOT NULL');
@@ -231,7 +231,7 @@ CREATE TABLE `et_ophcianaesthesiarecord_readings_version` (
 		$this->execute("
 CREATE TABLE `ophcianaesthesiarecord_anaesthetic_type_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`name` varchar(3) COLLATE utf8_bin NOT NULL,
+	`name` varchar(3) NOT NULL,
 	`display_order` tinyint(1) unsigned NOT NULL,
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
@@ -242,7 +242,7 @@ CREATE TABLE `ophcianaesthesiarecord_anaesthetic_type_version` (
 	KEY `acv_ophcianaesthesiarecord_anaesthetic_type_cui_fk` (`created_user_id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_anaesthetic_type_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_anaesthetic_type_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophcianaesthesiarecord_anaesthetic_type_version','id','int(10) unsigned NOT NULL');
@@ -260,19 +260,19 @@ CREATE TABLE `ophcianaesthesiarecord_anaesthetic_type_version` (
 		$this->execute("
 CREATE TABLE `ophcianaesthesiarecord_drug_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`name` varchar(64) COLLATE utf8_bin NOT NULL,
+	`name` varchar(64) NOT NULL,
 	`display_order` int(10) unsigned NOT NULL,
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
 	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-	`unit` varchar(16) COLLATE utf8_bin NOT NULL,
+	`unit` varchar(16) NOT NULL,
 	PRIMARY KEY (`id`),
 	KEY `acv_ophcianaesthesiarecord_drug_lmui_fk` (`last_modified_user_id`),
 	KEY `acv_ophcianaesthesiarecord_drug_cui_fk` (`created_user_id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_drug_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_drug_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophcianaesthesiarecord_drug_version','id','int(10) unsigned NOT NULL');
@@ -292,7 +292,7 @@ CREATE TABLE `ophcianaesthesiarecord_drug_dose_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 	`element_id` int(10) unsigned NOT NULL,
 	`item_id` int(10) unsigned NOT NULL,
-	`value` varchar(16) COLLATE utf8_bin NOT NULL,
+	`value` varchar(16) NOT NULL,
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
 	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
@@ -307,7 +307,7 @@ CREATE TABLE `ophcianaesthesiarecord_drug_dose_version` (
 	CONSTRAINT `acv_ophcianaesthesiarecord_drug_dose_el_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophcianaesthesiarecord_readings` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_drug_dose_ii_fk` FOREIGN KEY (`item_id`) REFERENCES `ophcianaesthesiarecord_drug` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_drug_dose_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophcianaesthesiarecord_drug_dose_version','id','int(10) unsigned NOT NULL');
@@ -325,7 +325,7 @@ CREATE TABLE `ophcianaesthesiarecord_drug_dose_version` (
 		$this->execute("
 CREATE TABLE `ophcianaesthesiarecord_ett_size_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`value` varchar(32) COLLATE utf8_bin NOT NULL,
+	`value` varchar(32) NOT NULL,
 	`display_order` tinyint(1) unsigned NOT NULL,
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
@@ -336,7 +336,7 @@ CREATE TABLE `ophcianaesthesiarecord_ett_size_version` (
 	KEY `acv_ophcianaesthesiarecord_ett_size_cui_fk` (`created_user_id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_ett_size_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_ett_size_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophcianaesthesiarecord_ett_size_version','id','int(10) unsigned NOT NULL');
@@ -354,7 +354,7 @@ CREATE TABLE `ophcianaesthesiarecord_ett_size_version` (
 		$this->execute("
 CREATE TABLE `ophcianaesthesiarecord_ett_type_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`name` varchar(32) COLLATE utf8_bin NOT NULL,
+	`name` varchar(32) NOT NULL,
 	`display_order` tinyint(1) unsigned NOT NULL,
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
@@ -365,7 +365,7 @@ CREATE TABLE `ophcianaesthesiarecord_ett_type_version` (
 	KEY `acv_ophcianaesthesiarecord_ett_type_cui_fk` (`created_user_id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_ett_type_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_ett_type_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophcianaesthesiarecord_ett_type_version','id','int(10) unsigned NOT NULL');
@@ -383,10 +383,10 @@ CREATE TABLE `ophcianaesthesiarecord_ett_type_version` (
 		$this->execute("
 CREATE TABLE `ophcianaesthesiarecord_gas_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`name` varchar(64) COLLATE utf8_bin NOT NULL,
+	`name` varchar(64) NOT NULL,
 	`display_order` int(10) unsigned NOT NULL,
 	`field_type_id` int(10) unsigned NOT NULL,
-	`unit` varchar(16) COLLATE utf8_bin NOT NULL,
+	`unit` varchar(16) NOT NULL,
 	`min` tinyint(1) unsigned DEFAULT NULL,
 	`max` tinyint(1) unsigned DEFAULT NULL,
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
@@ -400,7 +400,7 @@ CREATE TABLE `ophcianaesthesiarecord_gas_version` (
 	CONSTRAINT `acv_ophcianaesthesiarecord_gas_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_gas_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_gas_lft_fk` FOREIGN KEY (`field_type_id`) REFERENCES `ophcianaesthesiarecord_gas_field_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophcianaesthesiarecord_gas_version','id','int(10) unsigned NOT NULL');
@@ -418,7 +418,7 @@ CREATE TABLE `ophcianaesthesiarecord_gas_version` (
 		$this->execute("
 CREATE TABLE `ophcianaesthesiarecord_gas_field_type_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`name` varchar(32) COLLATE utf8_bin NOT NULL,
+	`name` varchar(32) NOT NULL,
 	`display_order` int(10) unsigned NOT NULL,
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
@@ -429,7 +429,7 @@ CREATE TABLE `ophcianaesthesiarecord_gas_field_type_version` (
 	KEY `acv_ophcianaesthesiarecord_gas_ft_ft_cui_fk` (`created_user_id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_gas_ft_ft_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_gas_ft_ft_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophcianaesthesiarecord_gas_field_type_version','id','int(10) unsigned NOT NULL');
@@ -449,7 +449,7 @@ CREATE TABLE `ophcianaesthesiarecord_gas_level_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 	`element_id` int(10) unsigned NOT NULL,
 	`item_id` int(10) unsigned NOT NULL,
-	`value` varchar(64) COLLATE utf8_bin NOT NULL,
+	`value` varchar(64) NOT NULL,
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
 	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
@@ -464,7 +464,7 @@ CREATE TABLE `ophcianaesthesiarecord_gas_level_version` (
 	CONSTRAINT `acv_ophcianaesthesiarecord_gas_level_el_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophcianaesthesiarecord_readings` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_gas_level_gai_fk` FOREIGN KEY (`item_id`) REFERENCES `ophcianaesthesiarecord_gas` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_gas_level_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophcianaesthesiarecord_gas_level_version','id','int(10) unsigned NOT NULL');
@@ -482,7 +482,7 @@ CREATE TABLE `ophcianaesthesiarecord_gas_level_version` (
 		$this->execute("
 CREATE TABLE `ophcianaesthesiarecord_iv_cannula_size_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`value` varchar(3) COLLATE utf8_bin NOT NULL,
+	`value` varchar(3) NOT NULL,
 	`display_order` tinyint(1) unsigned NOT NULL,
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
@@ -493,7 +493,7 @@ CREATE TABLE `ophcianaesthesiarecord_iv_cannula_size_version` (
 	KEY `acv_ophcianaesthesiarecord_iv_cannula_size_cui_fk` (`created_user_id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_iv_cannula_size_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_iv_cannula_size_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophcianaesthesiarecord_iv_cannula_size_version','id','int(10) unsigned NOT NULL');
@@ -511,7 +511,7 @@ CREATE TABLE `ophcianaesthesiarecord_iv_cannula_size_version` (
 		$this->execute("
 CREATE TABLE `ophcianaesthesiarecord_la_length_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`value` varchar(3) COLLATE utf8_bin NOT NULL,
+	`value` varchar(3) NOT NULL,
 	`display_order` tinyint(1) unsigned NOT NULL,
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
@@ -522,7 +522,7 @@ CREATE TABLE `ophcianaesthesiarecord_la_length_version` (
 	KEY `acv_ophcianaesthesiarecord_la_type_length_cui_fk` (`created_user_id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_la_type_length_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_la_type_length_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophcianaesthesiarecord_la_length_version','id','int(10) unsigned NOT NULL');
@@ -540,7 +540,7 @@ CREATE TABLE `ophcianaesthesiarecord_la_length_version` (
 		$this->execute("
 CREATE TABLE `ophcianaesthesiarecord_la_method_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`name` varchar(32) COLLATE utf8_bin NOT NULL,
+	`name` varchar(32) NOT NULL,
 	`display_order` tinyint(1) unsigned NOT NULL,
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
@@ -551,7 +551,7 @@ CREATE TABLE `ophcianaesthesiarecord_la_method_version` (
 	KEY `acv_ophcianaesthesiarecord_la_method_cui_fk` (`created_user_id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_la_method_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_la_method_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophcianaesthesiarecord_la_method_version','id','int(10) unsigned NOT NULL');
@@ -569,7 +569,7 @@ CREATE TABLE `ophcianaesthesiarecord_la_method_version` (
 		$this->execute("
 CREATE TABLE `ophcianaesthesiarecord_la_size_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`value` varchar(3) COLLATE utf8_bin NOT NULL,
+	`value` varchar(3) NOT NULL,
 	`display_order` tinyint(1) unsigned NOT NULL,
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
@@ -580,7 +580,7 @@ CREATE TABLE `ophcianaesthesiarecord_la_size_version` (
 	KEY `acv_ophcianaesthesiarecord_la_size_cui_fk` (`created_user_id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_la_size_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_la_size_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophcianaesthesiarecord_la_size_version','id','int(10) unsigned NOT NULL');
@@ -598,7 +598,7 @@ CREATE TABLE `ophcianaesthesiarecord_la_size_version` (
 		$this->execute("
 CREATE TABLE `ophcianaesthesiarecord_la_type_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`name` varchar(3) COLLATE utf8_bin NOT NULL,
+	`name` varchar(3) NOT NULL,
 	`display_order` tinyint(1) unsigned NOT NULL,
 	`default_method_id` int(10) unsigned DEFAULT NULL,
 	`default_size_id` int(10) unsigned DEFAULT NULL,
@@ -618,7 +618,7 @@ CREATE TABLE `ophcianaesthesiarecord_la_type_version` (
 	CONSTRAINT `acv_ophcianaesthesiarecord_la_type_dmi_fk` FOREIGN KEY (`default_method_id`) REFERENCES `ophcianaesthesiarecord_la_method` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_la_type_dsi_fk` FOREIGN KEY (`default_size_id`) REFERENCES `ophcianaesthesiarecord_la_size` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_la_type_dli_fk` FOREIGN KEY (`default_length_id`) REFERENCES `ophcianaesthesiarecord_la_length` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophcianaesthesiarecord_la_type_version','id','int(10) unsigned NOT NULL');
@@ -636,7 +636,7 @@ CREATE TABLE `ophcianaesthesiarecord_la_type_version` (
 		$this->execute("
 CREATE TABLE `ophcianaesthesiarecord_lma_size_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`value` varchar(3) COLLATE utf8_bin NOT NULL,
+	`value` varchar(3) NOT NULL,
 	`display_order` tinyint(1) unsigned NOT NULL,
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
@@ -647,7 +647,7 @@ CREATE TABLE `ophcianaesthesiarecord_lma_size_version` (
 	KEY `acv_ophcianaesthesiarecord_lma_size_cui_fk` (`created_user_id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_lma_size_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_lma_size_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophcianaesthesiarecord_lma_size_version','id','int(10) unsigned NOT NULL');
@@ -667,7 +667,7 @@ CREATE TABLE `ophcianaesthesiarecord_reading_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 	`element_id` int(10) unsigned NOT NULL,
 	`item_id` int(10) unsigned NOT NULL,
-	`value` varchar(16) COLLATE utf8_bin NOT NULL,
+	`value` varchar(16) NOT NULL,
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
 	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
@@ -682,7 +682,7 @@ CREATE TABLE `ophcianaesthesiarecord_reading_version` (
 	CONSTRAINT `acv_ophcianaesthesiarecord_reading_el_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophcianaesthesiarecord_readings` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_reading_ii_fk` FOREIGN KEY (`item_id`) REFERENCES `ophcianaesthesiarecord_reading_type` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_reading_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophcianaesthesiarecord_reading_version','id','int(10) unsigned NOT NULL');
@@ -700,15 +700,15 @@ CREATE TABLE `ophcianaesthesiarecord_reading_version` (
 		$this->execute("
 CREATE TABLE `ophcianaesthesiarecord_reading_type_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`name` varchar(64) COLLATE utf8_bin NOT NULL,
+	`name` varchar(64) NOT NULL,
 	`display_order` int(10) unsigned NOT NULL,
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
 	`created_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`created_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
-	`unit` varchar(32) COLLATE utf8_bin NOT NULL,
-	`validation_regex` varchar(64) COLLATE utf8_bin NOT NULL,
-	`validation_message` varchar(64) COLLATE utf8_bin NOT NULL,
+	`unit` varchar(32) NOT NULL,
+	`validation_regex` varchar(64) NOT NULL,
+	`validation_message` varchar(64) NOT NULL,
 	`field_type_id` int(10) unsigned NOT NULL,
 	PRIMARY KEY (`id`),
 	KEY `acv_ophcianaesthesiarecord_reading_type_lmui_fk` (`last_modified_user_id`),
@@ -717,7 +717,7 @@ CREATE TABLE `ophcianaesthesiarecord_reading_type_version` (
 	CONSTRAINT `acv_ophcianaesthesiarecord_reading_type_fti_fk` FOREIGN KEY (`field_type_id`) REFERENCES `ophcianaesthesiarecord_reading_type_field_type` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_reading_type_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_reading_type_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophcianaesthesiarecord_reading_type_version','id','int(10) unsigned NOT NULL');
@@ -735,7 +735,7 @@ CREATE TABLE `ophcianaesthesiarecord_reading_type_version` (
 		$this->execute("
 CREATE TABLE `ophcianaesthesiarecord_reading_type_field_type_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`name` varchar(64) COLLATE utf8_bin NOT NULL,
+	`name` varchar(64) NOT NULL,
 	`display_order` int(10) unsigned NOT NULL,
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
@@ -746,7 +746,7 @@ CREATE TABLE `ophcianaesthesiarecord_reading_type_field_type_version` (
 	KEY `acv_ophcianaesthesiarecord_reading_tft_cui_fk` (`created_user_id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_reading_tft_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_reading_tft_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophcianaesthesiarecord_reading_type_field_type_version','id','int(10) unsigned NOT NULL');
@@ -765,7 +765,7 @@ CREATE TABLE `ophcianaesthesiarecord_reading_type_field_type_version` (
 CREATE TABLE `ophcianaesthesiarecord_reading_type_field_type_option_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
 	`reading_type_id` int(10) unsigned NOT NULL,
-	`name` varchar(64) COLLATE utf8_bin NOT NULL,
+	`name` varchar(64) NOT NULL,
 	`display_order` int(10) unsigned NOT NULL,
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
@@ -778,7 +778,7 @@ CREATE TABLE `ophcianaesthesiarecord_reading_type_field_type_option_version` (
 	CONSTRAINT `acv_ophcianaesthesiarecord_reading_tfto_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_reading_tfto_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_reading_tfto_fti_fk` FOREIGN KEY (`reading_type_id`) REFERENCES `ophcianaesthesiarecord_reading_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophcianaesthesiarecord_reading_type_field_type_option_version','id','int(10) unsigned NOT NULL');
@@ -796,7 +796,7 @@ CREATE TABLE `ophcianaesthesiarecord_reading_type_field_type_option_version` (
 		$this->execute("
 CREATE TABLE `ophcianaesthesiarecord_side_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`name` varchar(5) COLLATE utf8_bin NOT NULL,
+	`name` varchar(5) NOT NULL,
 	`display_order` tinyint(1) unsigned NOT NULL,
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
@@ -807,7 +807,7 @@ CREATE TABLE `ophcianaesthesiarecord_side_version` (
 	KEY `acv_ophcianaesthesiarecord_side_cui_fk` (`created_user_id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_side_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_side_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophcianaesthesiarecord_side_version','id','int(10) unsigned NOT NULL');
@@ -825,7 +825,7 @@ CREATE TABLE `ophcianaesthesiarecord_side_version` (
 		$this->execute("
 CREATE TABLE `ophcianaesthesiarecord_site_version` (
 	`id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-	`name` varchar(3) COLLATE utf8_bin NOT NULL,
+	`name` varchar(3) NOT NULL,
 	`display_order` tinyint(1) unsigned NOT NULL,
 	`last_modified_user_id` int(10) unsigned NOT NULL DEFAULT '1',
 	`last_modified_date` datetime NOT NULL DEFAULT '1901-01-01 00:00:00',
@@ -836,7 +836,7 @@ CREATE TABLE `ophcianaesthesiarecord_site_version` (
 	KEY `acv_ophcianaesthesiarecord_site_cui_fk` (`created_user_id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_site_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_site_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 		");
 
 		$this->alterColumn('ophcianaesthesiarecord_site_version','id','int(10) unsigned NOT NULL');

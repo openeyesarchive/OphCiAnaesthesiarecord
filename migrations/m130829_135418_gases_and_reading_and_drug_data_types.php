@@ -6,7 +6,7 @@ class m130829_135418_gases_and_reading_and_drug_data_types extends OEMigration
 	{
 		$this->createTable('ophcianaesthesiarecord_gas_field_type', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
-				'name' => 'varchar(32) COLLATE utf8_bin NOT NULL',
+				'name' => 'varchar(32) NOT NULL',
 				'display_order' => 'int(10) unsigned NOT NULL',
 				'last_modified_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
 				'last_modified_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
@@ -17,14 +17,14 @@ class m130829_135418_gases_and_reading_and_drug_data_types extends OEMigration
 				'KEY `ophcianaesthesiarecord_gas_ft_ft_cui_fk` (`created_user_id`)',
 				'CONSTRAINT `ophcianaesthesiarecord_gas_ft_ft_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
 				'CONSTRAINT `ophcianaesthesiarecord_gas_ft_ft_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
-			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
+			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci');
 
 		$this->createTable('ophcianaesthesiarecord_gas', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
-				'name' => 'varchar(64) COLLATE utf8_bin NOT NULL',
+				'name' => 'varchar(64) NOT NULL',
 				'display_order' => 'int(10) unsigned NOT NULL',
 				'field_type_id' => 'int(10) unsigned NOT NULL',
-				'unit' => 'varchar(16) COLLATE utf8_bin NOT NULL',
+				'unit' => 'varchar(16) NOT NULL',
 				'min' => 'tinyint(1) unsigned NULL',
 				'max' => 'tinyint(1) unsigned NULL',
 				'last_modified_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
@@ -38,14 +38,14 @@ class m130829_135418_gases_and_reading_and_drug_data_types extends OEMigration
 				'CONSTRAINT `ophcianaesthesiarecord_gas_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
 				'CONSTRAINT `ophcianaesthesiarecord_gas_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
 				'CONSTRAINT `ophcianaesthesiarecord_gas_lft_fk` FOREIGN KEY (`field_type_id`) REFERENCES `ophcianaesthesiarecord_gas_field_type` (`id`)',
-			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
+			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci');
 
 		$this->createTable('ophcianaesthesiarecord_gas_level', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
 				'element_id' => 'int(10) unsigned NOT NULL',
 				'item_id' => 'int(10) unsigned NOT NULL',
 				'record_time' => 'time NOT NULL',
-				'value' => 'varchar(64) COLLATE utf8_bin NOT NULL',
+				'value' => 'varchar(64) NOT NULL',
 				'display_order' => 'int(10) unsigned NOT NULL',
 				'last_modified_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
 				'last_modified_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
@@ -60,11 +60,11 @@ class m130829_135418_gases_and_reading_and_drug_data_types extends OEMigration
 				'CONSTRAINT `ophcianaesthesiarecord_gas_level_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
 				'CONSTRAINT `ophcianaesthesiarecord_gas_level_el_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophcianaesthesiarecord_readings` (`id`)',
 				'CONSTRAINT `ophcianaesthesiarecord_gas_level_gai_fk` FOREIGN KEY (`item_id`) REFERENCES `ophcianaesthesiarecord_gas` (`id`)',
-			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
+			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci');
 
 		$this->createTable('ophcianaesthesiarecord_reading_type_field_type', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
-				'name' => 'varchar(64) COLLATE utf8_bin NOT NULL',
+				'name' => 'varchar(64) NOT NULL',
 				'display_order' => 'int(10) unsigned NOT NULL',
 				'last_modified_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
 				'last_modified_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
@@ -75,12 +75,12 @@ class m130829_135418_gases_and_reading_and_drug_data_types extends OEMigration
 				'KEY `ophcianaesthesiarecord_reading_tft_cui_fk` (`created_user_id`)',
 				'CONSTRAINT `ophcianaesthesiarecord_reading_tft_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
 				'CONSTRAINT `ophcianaesthesiarecord_reading_tft_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
-			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
+			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci');
 
 		$this->createTable('ophcianaesthesiarecord_reading_type_field_type_option', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
 				'reading_type_id' => 'int(10) unsigned NOT NULL',
-				'name' => 'varchar(64) COLLATE utf8_bin NOT NULL',
+				'name' => 'varchar(64) NOT NULL',
 				'display_order' => 'int(10) unsigned NOT NULL',
 				'last_modified_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
 				'last_modified_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
@@ -93,12 +93,12 @@ class m130829_135418_gases_and_reading_and_drug_data_types extends OEMigration
 				'CONSTRAINT `ophcianaesthesiarecord_reading_tfto_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
 				'CONSTRAINT `ophcianaesthesiarecord_reading_tfto_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
 				'CONSTRAINT `ophcianaesthesiarecord_reading_tfto_fti_fk` FOREIGN KEY (`reading_type_id`) REFERENCES `ophcianaesthesiarecord_reading_type` (`id`)',
-			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
+			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci');
 
-		$this->addColumn('ophcianaesthesiarecord_drug','unit','varchar(16) COLLATE utf8_bin NOT NULL');
-		$this->addColumn('ophcianaesthesiarecord_reading_type','unit','varchar(32) COLLATE utf8_bin NOT NULL');
-		$this->addColumn('ophcianaesthesiarecord_reading_type','validation_regex','varchar(64) COLLATE utf8_bin NOT NULL');
-		$this->addColumn('ophcianaesthesiarecord_reading_type','validation_message','varchar(64) COLLATE utf8_bin NOT NULL');
+		$this->addColumn('ophcianaesthesiarecord_drug','unit','varchar(16) NOT NULL');
+		$this->addColumn('ophcianaesthesiarecord_reading_type','unit','varchar(32) NOT NULL');
+		$this->addColumn('ophcianaesthesiarecord_reading_type','validation_regex','varchar(64) NOT NULL');
+		$this->addColumn('ophcianaesthesiarecord_reading_type','validation_message','varchar(64) NOT NULL');
 		$this->addColumn('ophcianaesthesiarecord_reading_type','field_type_id','int(10) unsigned NOT NULL');
 
 		$this->delete('ophcianaesthesiarecord_drug');
