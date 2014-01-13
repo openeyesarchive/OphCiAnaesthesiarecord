@@ -20,7 +20,7 @@ class m130820_145217_event_type_OphCiAnaesthesiarecord extends OEMigration
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
 				'event_id' => 'int(10) unsigned NOT NULL',
 				'start_time' => 'time NOT NULL',
-				'comments' => 'text COLLATE utf8_bin DEFAULT \'\'', // Comments
+				'comments' => 'text DEFAULT \'\'', // Comments
 				'last_modified_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
 				'last_modified_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
 				'created_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
@@ -32,11 +32,11 @@ class m130820_145217_event_type_OphCiAnaesthesiarecord extends OEMigration
 				'CONSTRAINT `et_ophcianaesthesiarecord_readings_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
 				'CONSTRAINT `et_ophcianaesthesiarecord_readings_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
 				'CONSTRAINT `et_ophcianaesthesiarecord_readings_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)',
-			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
+			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci');
 
 		$this->createTable('ophcianaesthesiarecord_reading_type', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
-				'name' => 'varchar(64) COLLATE utf8_bin NOT NULL',
+				'name' => 'varchar(64) NOT NULL',
 				'display_order' => 'int(10) unsigned NOT NULL',
 				'last_modified_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
 				'last_modified_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
@@ -47,14 +47,14 @@ class m130820_145217_event_type_OphCiAnaesthesiarecord extends OEMigration
 				'KEY `ophcianaesthesiarecord_reading_type_cui_fk` (`created_user_id`)',
 				'CONSTRAINT `ophcianaesthesiarecord_reading_type_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
 				'CONSTRAINT `ophcianaesthesiarecord_reading_type_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
-			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
+			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci');
 
 		$this->createTable('ophcianaesthesiarecord_reading', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
 				'element_id' => 'int(10) unsigned NOT NULL',
 				'reading_type_id' => 'int(10) unsigned NOT NULL',
 				'reading_time' => 'time NOT NULL',
-				'value' => 'varchar(16) COLLATE utf8_bin NOT NULL',
+				'value' => 'varchar(16) NOT NULL',
 				'display_order' => 'int(10) unsigned NOT NULL',
 				'last_modified_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
 				'last_modified_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
@@ -69,11 +69,11 @@ class m130820_145217_event_type_OphCiAnaesthesiarecord extends OEMigration
 				'CONSTRAINT `ophcianaesthesiarecord_reading_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
 				'CONSTRAINT `ophcianaesthesiarecord_reading_rt_fk` FOREIGN KEY (`reading_type_id`) REFERENCES `ophcianaesthesiarecord_reading_type` (`id`)',
 				'CONSTRAINT `ophcianaesthesiarecord_reading_el_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophcianaesthesiarecord_readings` (`id`)',
-			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
+			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci');
 
 		$this->createTable('ophcianaesthesiarecord_drug', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
-				'name' => 'varchar(64) COLLATE utf8_bin NOT NULL',
+				'name' => 'varchar(64) NOT NULL',
 				'display_order' => 'int(10) unsigned NOT NULL',
 				'last_modified_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
 				'last_modified_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
@@ -84,14 +84,14 @@ class m130820_145217_event_type_OphCiAnaesthesiarecord extends OEMigration
 				'KEY `ophcianaesthesiarecord_drug_cui_fk` (`created_user_id`)',
 				'CONSTRAINT `ophcianaesthesiarecord_drug_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
 				'CONSTRAINT `ophcianaesthesiarecord_drug_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
-			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
+			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci');
 
 		$this->createTable('ophcianaesthesiarecord_drug_dose', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
 				'element_id' => 'int(10) unsigned NOT NULL',
 				'drug_id' => 'int(10) unsigned NOT NULL',
 				'dose_time' => 'time NOT NULL',
-				'dose' => 'varchar(16) COLLATE utf8_bin NOT NULL',
+				'dose' => 'varchar(16) NOT NULL',
 				'display_order' => 'int(10) unsigned NOT NULL',
 				'last_modified_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
 				'last_modified_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
@@ -106,7 +106,7 @@ class m130820_145217_event_type_OphCiAnaesthesiarecord extends OEMigration
 				'CONSTRAINT `ophcianaesthesiarecord_drug_dose_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
 				'CONSTRAINT `ophcianaesthesiarecord_drug_dose_rt_fk` FOREIGN KEY (`drug_id`) REFERENCES `ophcianaesthesiarecord_drug` (`id`)',
 				'CONSTRAINT `ophcianaesthesiarecord_drug_dose_el_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophcianaesthesiarecord_readings` (`id`)',
-			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
+			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci');
 
 		$this->initialiseData(dirname(__FILE__));
 	}

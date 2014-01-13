@@ -33,12 +33,12 @@ class m130927_092409_new_reading_types extends CDbMigration
 		$this->createTable('et_ophcianaesthesiarecord_postop', array(
 				'id' => 'int(10) unsigned NOT NULL AUTO_INCREMENT',
 				'event_id' => 'int(10) unsigned NOT NULL',
-				'transfer_sao2' => 'varchar(32) COLLATE utf8_bin NOT NULL',
-				'transfer_hr' => 'varchar(32) COLLATE utf8_bin NOT NULL',
-				'transfer_bp' => 'varchar(32) COLLATE utf8_bin NOT NULL',
-				'transfer_rr' => 'varchar(32) COLLATE utf8_bin NOT NULL',
-				'transfer_temp' => 'varchar(32) COLLATE utf8_bin NOT NULL',
-				'comments' => 'text COLLATE utf8_bin DEFAULT \'\'',
+				'transfer_sao2' => 'varchar(32) NOT NULL',
+				'transfer_hr' => 'varchar(32) NOT NULL',
+				'transfer_bp' => 'varchar(32) NOT NULL',
+				'transfer_rr' => 'varchar(32) NOT NULL',
+				'transfer_temp' => 'varchar(32) NOT NULL',
+				'comments' => 'text DEFAULT \'\'',
 				'last_modified_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
 				'last_modified_date' => 'datetime NOT NULL DEFAULT \'1901-01-01 00:00:00\'',
 				'created_user_id' => 'int(10) unsigned NOT NULL DEFAULT 1',
@@ -50,14 +50,14 @@ class m130927_092409_new_reading_types extends CDbMigration
 				'CONSTRAINT `et_ophcianaesthesiarecord_postop_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)',
 				'CONSTRAINT `et_ophcianaesthesiarecord_postop_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`)',
 				'CONSTRAINT `et_ophcianaesthesiarecord_postop_ev_fk` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)',
-			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin');
+			), 'ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci');
 	}
 
 	public function down()
 	{
 		$this->dropTable('et_ophcianaesthesiarecord_postop');
 
-		$this->addColumn('et_ophcianaesthesiarecord_readings','comments','text COLLATE utf8_bin');
+		$this->addColumn('et_ophcianaesthesiarecord_readings','comments','text');
 
 		$event_type = Yii::app()->db->createCommand()->select("*")->from("event_type")->where("class_name = :class_name",array(":class_name"=>"OphCiAnaesthesiarecord"))->queryRow();
 
