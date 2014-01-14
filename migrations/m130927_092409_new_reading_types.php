@@ -4,15 +4,15 @@ class m130927_092409_new_reading_types extends CDbMigration
 {
 	public function up()
 	{
-		$integer = Yii::app()->db->createCommand()->select("*")->from("ophcianaesthesiarecord_reading_type_field_type")->where("name = :name",array(":name"=>"Integer"))->queryRow();
+		$integer = $this->dbConnection->createCommand()->select("*")->from("ophcianaesthesiarecord_reading_type_field_type")->where("name = :name",array(":name"=>"Integer"))->queryRow();
 
 		$this->insert('ophcianaesthesiarecord_reading_type',array('name'=>'PNS','display_order'=>8,'unit'=>'','field_type_id'=>$integer['id']));
 
-		$select = Yii::app()->db->createCommand()->select("*")->from("ophcianaesthesiarecord_reading_type_field_type")->where("name = :name",array(":name"=>"Select"))->queryRow();
+		$select = $this->dbConnection->createCommand()->select("*")->from("ophcianaesthesiarecord_reading_type_field_type")->where("name = :name",array(":name"=>"Select"))->queryRow();
 
 		$this->insert('ophcianaesthesiarecord_reading_type',array('name'=>'Position','display_order'=>9,'unit'=>'','field_type_id'=>$select['id']));
 
-		$rt = Yii::app()->db->createCommand()->select("*")->from("ophcianaesthesiarecord_reading_type")->where("name = :name",array(":name"=>"Position"))->queryRow();
+		$rt = $this->dbConnection->createCommand()->select("*")->from("ophcianaesthesiarecord_reading_type")->where("name = :name",array(":name"=>"Position"))->queryRow();
 
 		$this->insert('ophcianaesthesiarecord_reading_type_field_type_option',array('reading_type_id'=>$rt['id'],'name'=>'Superior','display_order'=>1));
 		$this->insert('ophcianaesthesiarecord_reading_type_field_type_option',array('reading_type_id'=>$rt['id'],'name'=>'Temporal','display_order'=>2));
@@ -24,7 +24,7 @@ class m130927_092409_new_reading_types extends CDbMigration
 		$this->addColumn('et_ophcianaesthesiarecord_readings','surgery_start_time','time NOT NULL');
 		$this->addColumn('et_ophcianaesthesiarecord_readings','surgery_end_time','time NOT NULL');
 
-		$event_type = Yii::app()->db->createCommand()->select("*")->from("event_type")->where("class_name = :class_name",array(":class_name"=>"OphCiAnaesthesiarecord"))->queryRow();
+		$event_type = $this->dbConnection->createCommand()->select("*")->from("event_type")->where("class_name = :class_name",array(":class_name"=>"OphCiAnaesthesiarecord"))->queryRow();
 
 		$this->insert('element_type',array('name'=>'Post-op','class_name'=>'Element_OphCiAnaesthesiarecord_PostOp','event_type_id'=>$event_type['id'],'display_order'=>50,'default'=>1));
 
@@ -59,7 +59,7 @@ class m130927_092409_new_reading_types extends CDbMigration
 
 		$this->addColumn('et_ophcianaesthesiarecord_readings','comments','text');
 
-		$event_type = Yii::app()->db->createCommand()->select("*")->from("event_type")->where("class_name = :class_name",array(":class_name"=>"OphCiAnaesthesiarecord"))->queryRow();
+		$event_type = $this->dbConnection->createCommand()->select("*")->from("event_type")->where("class_name = :class_name",array(":class_name"=>"OphCiAnaesthesiarecord"))->queryRow();
 
 		$this->delete('element_type',"event_type_id = {$event_type['id']} and class_name = 'Element_OphCiAnaesthesiarecord_PostOp'");
 
@@ -68,7 +68,7 @@ class m130927_092409_new_reading_types extends CDbMigration
 		$this->dropColumn('et_ophcianaesthesiarecord_readings','anaesthesia_end_time');
 		$this->renameColumn('et_ophcianaesthesiarecord_readings','anaesthesia_start_time','start_time');
 
-		if ($rt = Yii::app()->db->createCommand()->select("*")->from("ophcianaesthesiarecord_reading_type")->where("name = :name",array(":name"=>"Position"))->queryRow()) {
+		if ($rt = $this->dbConnection->createCommand()->select("*")->from("ophcianaesthesiarecord_reading_type")->where("name = :name",array(":name"=>"Position"))->queryRow()) {
 			$this->delete('ophcianaesthesiarecord_reading_type_field_type_option',"reading_type_id = {$rt['id']}");
 		}
 

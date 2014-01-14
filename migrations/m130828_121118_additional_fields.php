@@ -4,7 +4,7 @@ class m130828_121118_additional_fields extends OEMigration
 {
 	public function up()
 	{
-		$event_type = Yii::app()->db->createCommand()->select("*")->from("event_type")->where("class_name = :class_name",array(":class_name" => "OphCiAnaesthesiarecord"))->queryRow();
+		$event_type = $this->dbConnection->createCommand()->select("*")->from("event_type")->where("class_name = :class_name",array(":class_name" => "OphCiAnaesthesiarecord"))->queryRow();
 
 		$this->update('element_type',array('display_order'=>40,'default'=>0),"event_type_id = {$event_type['id']} and class_name = 'Element_OphCiAnaesthesiarecord_Readings'");
 
@@ -306,7 +306,7 @@ class m130828_121118_additional_fields extends OEMigration
 		$this->dropTable('ophcianaesthesiarecord_site');
 		$this->dropTable('ophcianaesthesiarecord_anaesthetic_type');
 
-		$event_type = Yii::app()->db->createCommand()->select("*")->from("event_type")->where("class_name = :class_name",array(":class_name" => "OphCiAnaesthesiarecord"))->queryRow();
+		$event_type = $this->dbConnection->createCommand()->select("*")->from("event_type")->where("class_name = :class_name",array(":class_name" => "OphCiAnaesthesiarecord"))->queryRow();
 
 		$this->update('element_type',array('display_order'=>1,'default'=>1),"event_type_id = {$event_type['id']} and class_name = 'Element_OphCiAnaesthesiarecord_Readings'");
 
