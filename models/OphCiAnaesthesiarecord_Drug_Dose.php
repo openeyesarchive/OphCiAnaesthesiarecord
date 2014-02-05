@@ -27,7 +27,7 @@
  * @property string $value
  */
 
-class OphCiAnaesthesiarecord_Drug_Dose extends BaseEventTypeElement
+class OphCiAnaesthesiarecord_Drug_Dose extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.

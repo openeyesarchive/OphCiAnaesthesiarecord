@@ -28,7 +28,7 @@
  * @property integer $display_order
  */
 
-class OphCiAnaesthesiarecord_Reading extends BaseEventTypeElement
+class OphCiAnaesthesiarecord_Reading extends BaseActiveRecordVersioned
 {
 	/**
 	 * Returns the static model of the specified AR class.

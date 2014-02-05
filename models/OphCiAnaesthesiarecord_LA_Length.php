@@ -26,7 +26,7 @@
  * @property integer $display_order
  */
 
-class OphCiAnaesthesiarecord_LA_Length extends BaseEventTypeElement
+class OphCiAnaesthesiarecord_LA_Length extends BaseActiveRecordVersionedSoftDelete
 {
 	/**
 	 * Returns the static model of the specified AR class.

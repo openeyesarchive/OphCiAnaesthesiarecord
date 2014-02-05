@@ -26,7 +26,7 @@
  * @property integer $display_order
  */
 
-class OphCiAnaesthesiarecord_IV_Cannula_Size extends BaseEventTypeElement
+class OphCiAnaesthesiarecord_IV_Cannula_Size extends BaseActiveRecordVersionedSoftDelete
 {
 	/**
 	 * Returns the static model of the specified AR class.

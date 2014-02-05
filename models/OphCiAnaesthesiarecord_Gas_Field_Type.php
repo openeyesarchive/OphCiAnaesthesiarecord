@@ -26,7 +26,7 @@
  * @property string $display_order
  */
 
-class OphCiAnaesthesiarecord_Gas_Field_Type extends BaseEventTypeElement
+class OphCiAnaesthesiarecord_Gas_Field_Type extends BaseActiveRecordVersionedSoftDelete
 {
 	/**
 	 * Returns the static model of the specified AR class.

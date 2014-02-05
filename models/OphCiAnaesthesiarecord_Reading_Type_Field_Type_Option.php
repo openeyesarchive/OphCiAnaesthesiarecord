@@ -27,7 +27,7 @@
  * @property string $comments
  */
 
-class OphCiAnaesthesiarecord_Reading_Type_Field_Type_Option extends BaseEventTypeElement
+class OphCiAnaesthesiarecord_Reading_Type_Field_Type_Option extends BaseActiveRecordVersionedSoftDelete
 {
 	/**
 	 * Returns the static model of the specified AR class.
