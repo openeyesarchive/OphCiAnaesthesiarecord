@@ -135,58 +135,52 @@ class DefaultController extends BaseEventTypeController
 	 * (non-PHPdoc)
 	 * @see BaseEventTypeController::setPOSTManyToMany()
 	 */
-	protected function setPOSTManyToMany($element)
+	protected function setComplexAttributes_Element_OphCiAnaesthesiarecord_Readings($element)
 	{
-		if (get_class($element) == 'Element_OphCiAnaesthesiarecord_Readings') {
-			$drugs = array();
-			$readings = array();
+		$drugs = array();
+		$readings = array();
 
-			foreach ($this->getItems($element) as $item) {
-				if (get_class($item) == 'OphCiAnaesthesiarecord_Reading') {
-					$readings[] = $item;
-				} else {
-					$drugs[] = $item;
-				}
+		foreach ($this->getItems($element) as $item) {
+			if (get_class($item) == 'OphCiAnaesthesiarecord_Reading') {
+				$readings[] = $item;
+			} else {
+				$drugs[] = $item;
 			}
-
-			$element->drugs = $drugs;
-			$element->readings = $readings;
 		}
+
+		$element->drugs = $drugs;
+		$element->readings = $readings;
 	}
 
 	/*
 	 * Store related items
 	 */
-	protected function storePOSTManyToMany($elements)
+	protected function saveComplexAttributes_Element_OphCiAnaesthesiarecord_Readings($element)
 	{
-		foreach ($elements as $element) {
-			if (get_class($element) == 'Element_OphCiAnaesthesiarecord_Readings') {
-				$item_ids = array();
-				foreach ($this->getItems(null) as $item) {
-					$item->element_id = $element->id;
+		$item_ids = array();
+		foreach ($this->getItems(null) as $item) {
+			$item->element_id = $element->id;
 
-					if (!$item->save()) {
-						throw new Exception("Unable to save related item: ".print_r($item->getErrors(),true));
-					}
+			if (!$item->save()) {
+				throw new Exception("Unable to save related item: ".print_r($item->getErrors(),true));
+			}
 
-					if (!isset($item_ids[get_class($item)])) {
-						$item_ids[get_class($item)] = array();
-					}
+			if (!isset($item_ids[get_class($item)])) {
+				$item_ids[get_class($item)] = array();
+			}
 
-					$item_ids[get_class($item)][] = $item->id;
-				}
+			$item_ids[get_class($item)][] = $item->id;
+		}
 
-				foreach ($item_ids as $class => $ids) {
-					$criteria = new CDbCriteria;
-					$criteria->addCondition('element_id = :element_id');
-					$criteria->addNotInCondition('id',$ids);
-					$criteria->params[':element_id'] = $element->id;
+		foreach ($item_ids as $class => $ids) {
+			$criteria = new CDbCriteria;
+			$criteria->addCondition('element_id = :element_id');
+			$criteria->addNotInCondition('id',$ids);
+			$criteria->params[':element_id'] = $element->id;
 
-					foreach ($class::model()->findAll($criteria) as $item) {
-						if (!$item->delete()) {
-							throw new Exception("Unable to delete $class: ".print_r($item->getErrors(),true));
-						}
-					}
+			foreach ($class::model()->findAll($criteria) as $item) {
+				if (!$item->delete()) {
+					throw new Exception("Unable to delete $class: ".print_r($item->getErrors(),true));
 				}
 			}
 		}
