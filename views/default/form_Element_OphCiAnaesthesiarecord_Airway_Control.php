@@ -25,7 +25,7 @@
 	data-element-display-order="<?php echo $element->elementType->display_order?>"<?php if (@$ondemand) {?> style="display: none"<?php }?>>
 	<h4 class="elementTypeName"><?php echo $element->elementType->name; ?></h4>
 
-	<?php echo $form->radioButtons($element, 'lma_size_id', CHtml::listData(OphCiAnaesthesiarecord_LMA_Size::model()->findAll(array('order'=>'display_order')),'id','value'),null,false,false,false,false,array('append'=>'#'))?>
-	<?php echo $form->radioButtons($element, 'ett_type_id', CHtml::listData(OphCiAnaesthesiarecord_ETT_Type::model()->findAll(array('order'=>'display_order')),'id','name'))?>
-	<?php echo $form->dropDownList($element, 'ett_size_id', CHtml::listData(OphCiAnaesthesiarecord_ETT_Size::model()->findAll(array('order'=>'display_order')),'id','value'),array('empty'=>'- Select -','append'=>'mm'))?>
+	<?php echo $form->radioButtons($element, 'lma_size_id', CHtml::listData(OphCiAnaesthesiarecord_LMA_Size::model()->notDeletedOrPk($element->lma_size_id)->findAll(array('order'=>'display_order')),'id','value'),null,false,false,false,false,array('append'=>'#'))?>
+	<?php echo $form->radioButtons($element, 'ett_type_id', CHtml::listData(OphCiAnaesthesiarecord_ETT_Type::model()->notDeletedOrPk($element->ett_type_id)->findAll(array('order'=>'display_order')),'id','name'))?>
+	<?php echo $form->dropDownList($element, 'ett_size_id', CHtml::listData(OphCiAnaesthesiarecord_ETT_Size::model()->notDeletedOrPk($element->ett_size_id)->findAll(array('order'=>'display_order')),'id','value'),array('empty'=>'- Select -','append'=>'mm'))?>
 </div>

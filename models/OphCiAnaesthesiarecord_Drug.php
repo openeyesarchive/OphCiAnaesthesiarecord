@@ -101,16 +101,5 @@ class OphCiAnaesthesiarecord_Drug extends BaseActiveRecordVersionedSoftDelete
 			'criteria' => $criteria,
 		));
 	}
-
-	public function getUnitAttributes()
-	{
-		$attributes = array();
-
-		foreach (OphCiAnaesthesiarecord_Drug::model()->findAll() as $type) {
-			$attributes[$type->id] = array('data-attr-unit' => $type->unit);
-		}
-		
-		return $attributes;
-	}
 }
 ?>

@@ -20,7 +20,7 @@ class DefaultController extends BaseEventTypeController
 	{
 		$this->jsVars['OphCiAnaesthesiarecord_la_defaults'] = array();
 
-		foreach (OphCiAnaesthesiarecord_LA_Type::model()->findAll() as $type) {
+		foreach (OphCiAnaesthesiarecord_LA_Type::model()->notDeleted()->findAll() as $type) {
 			$this->jsVars['OphCiAnaesthesiarecord_la_defaults'][$type->name] = array( 
 				'default_method_id' => $type->default_method_id,
 				'default_size_id' => $type->default_size_id,

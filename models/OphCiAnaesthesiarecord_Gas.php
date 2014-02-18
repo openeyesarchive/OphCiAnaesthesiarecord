@@ -104,17 +104,6 @@ class OphCiAnaesthesiarecord_Gas extends BaseActiveRecordVersionedSoftDelete
 		));
 	}
 
-	public function getUnitAttributes()
-	{
-		$attributes = array();
-
-		foreach (OphCiAnaesthesiarecord_Gas::model()->findAll() as $type) {
-			$attributes[$type->id] = array('data-attr-unit' => $type->unit);
-		}
-		
-		return $attributes;
-	}
-
 	public function getColourForValue($value) {
 		if (strlen($value) >0) {
 			if ((ctype_digit($value) || is_int($value)) && ($value >= $this->min and $value <= $this->max)) {

@@ -25,8 +25,8 @@
 	data-element-display-order="<?php echo $element->elementType->display_order?>"<?php if (@$ondemand) {?> style="display: none"<?php }?>>
 	<h4 class="elementTypeName"><?php echo $element->elementType->name; ?></h4>
 
-	<?php echo $form->radioButtons($element, 'la_type_id', CHtml::listData(OphCiAnaesthesiarecord_LA_Type::model()->findAll(array('order'=>'display_order')),'id','name'))?>
-	<?php echo $form->radioButtons($element, 'la_method_id', CHtml::listData(OphCiAnaesthesiarecord_LA_Method::model()->findAll(array('order'=>'display_order')),'id','name'))?>
-	<?php echo $form->radioButtons($element, 'la_size_id', CHtml::listData(OphCiAnaesthesiarecord_LA_Size::model()->findAll(array('order'=>'display_order')),'id','value'), null, false, false, false, false, array('append'=>'G'))?>
-	<?php echo $form->radioButtons($element, 'la_length_id', CHtml::listData(OphCiAnaesthesiarecord_LA_Length::model()->findAll(array('order'=>'display_order')),'id','value'), null, false, false, false, false, array('append'=>'"'))?>
+	<?php echo $form->radioButtons($element, 'la_type_id', CHtml::listData(OphCiAnaesthesiarecord_LA_Type::model()->notDeletedOrPk($element->la_type_id)->findAll(array('order'=>'display_order')),'id','name'))?>
+	<?php echo $form->radioButtons($element, 'la_method_id', CHtml::listData(OphCiAnaesthesiarecord_LA_Method::model()->notDeletedOrPk($element->la_method_id)->findAll(array('order'=>'display_order')),'id','name'))?>
+	<?php echo $form->radioButtons($element, 'la_size_id', CHtml::listData(OphCiAnaesthesiarecord_LA_Size::model()->notDeletedOrPk($element->la_size_id)->findAll(array('order'=>'display_order')),'id','value'), null, false, false, false, false, array('append'=>'G'))?>
+	<?php echo $form->radioButtons($element, 'la_length_id', CHtml::listData(OphCiAnaesthesiarecord_LA_Length::model()->notDeletedOrPk($element->la_length_id)->findAll(array('order'=>'display_order')),'id','value'), null, false, false, false, false, array('append'=>'"'))?>
 </div>

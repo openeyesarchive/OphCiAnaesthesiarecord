@@ -90,6 +90,7 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 			'usermodified' => array(self::BELONGS_TO, 'User', 'last_modified_user_id'),
 			'drugs' => array(self::HAS_MANY, 'OphCiAnaesthesiarecord_Drug_Dose', 'element_id', 'order' => 'display_order'),
 			'readings' => array(self::HAS_MANY, 'OphCiAnaesthesiarecord_Reading', 'element_id', 'order' => 'display_order'),
+			'gas_levels' => array(self::HAS_MANY, 'OphCiAnaesthesiarecord_Gas_Level', 'element_id', 'order' => 'display_order'),
 		);
 	}
 
@@ -281,6 +282,42 @@ class Element_OphCiAnaesthesiarecord_Readings extends BaseEventTypeElement
 		$this->anaesthesia_end_time = substr($this->anaesthesia_end_time,0,5);
 		$this->surgery_start_time = substr($this->surgery_start_time,0,5);
 		$this->surgery_end_time = substr($this->surgery_end_time,0,5);
+	}
+
+	/* Get drug ids used by the element */
+	public function getDrugValues()
+	{
+		$drug_values = array();
+
+		foreach ($this->drugs as $drug) {
+			$drug_values[] = $drug->item_id;
+		}
+
+		return $drug_values;
+	}
+
+	/* Get reading type ids used by the element */
+	public function getReadingTypeValues()
+	{
+		$reading_type_values = array();
+
+		foreach ($this->readings as $reading) {
+			$reading_type_values[] = $reading->item_id;
+		}
+
+		return $reading_type_values;
+	}
+
+	/* Get gas ids used by the element */
+	public function getGasValues()
+	{
+		$gas_values = array();
+
+		foreach ($this->gas_levels as $gas_level) {
+			$gas_values[] = $gas_level->item_id;
+		}
+
+		return $gas_values;
 	}
 }
 ?>

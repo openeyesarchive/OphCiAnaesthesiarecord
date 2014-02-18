@@ -25,7 +25,7 @@
 	data-element-display-order="<?php echo $element->elementType->display_order?>"<?php if (@$ondemand) {?> style="display: none"<?php }?>>
 	<h4 class="elementTypeName"><?php echo $element->elementType->name; ?></h4>
 
-	<?php echo $form->radioButtons($element, 'side_id', CHtml::listData(OphCiAnaesthesiarecord_Side::model()->findAll(array('order'=>'display_order')),'id','name'))?>
-	<?php echo $form->radioButtons($element, 'site_id', CHtml::listData(OphCiAnaesthesiarecord_Site::model()->findAll(array('order'=>'display_order')),'id','name'))?>
-	<?php echo $form->radioButtons($element, 'cannula_size_id', CHtml::listData(OphCiAnaesthesiarecord_IV_Cannula_Size::model()->findAll(array('order'=>'display_order')),'id','value'), null, false, false, false, false, array('append' => 'G'))?>
+	<?php echo $form->radioButtons($element, 'side_id', CHtml::listData(OphCiAnaesthesiarecord_Side::model()->notDeletedOrPk($element->side_id)->findAll(array('order'=>'display_order')),'id','name'))?>
+	<?php echo $form->radioButtons($element, 'site_id', CHtml::listData(OphCiAnaesthesiarecord_Site::model()->notDeletedOrPk($element->site_id)->findAll(array('order'=>'display_order')),'id','name'))?>
+	<?php echo $form->radioButtons($element, 'cannula_size_id', CHtml::listData(OphCiAnaesthesiarecord_IV_Cannula_Size::model()->notDeletedOrPk($element->cannula_size_id)->findAll(array('order'=>'display_order')),'id','value'), null, false, false, false, false, array('append' => 'G'))?>
 </div>
