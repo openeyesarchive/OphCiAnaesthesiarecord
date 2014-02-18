@@ -26,5 +26,5 @@
 	<h4 class="elementTypeName"><?php echo $element->elementType->name; ?></h4>
 
 	<?php echo $form->checkBox($element, 'equipment_checked')?>
-	<?php echo $form->radioButtons($element, 'anaesthetic_type_id', CHtml::listData(OphCiAnaesthesiarecord_Anaesthetic_Type::model()->findAll(array('order'=>'display_order')),'id','name'), null, false, (!empty($_POST) ? !@$_POST['Element_OphCiAnaesthesiarecord_General']['equipment_checked'] : !$element->equipment_checked))?>
+	<?php echo $form->radioButtons($element, 'anaesthetic_type_id', CHtml::listData(OphCiAnaesthesiarecord_Anaesthetic_Type::model()->activeOrPk($element->anaesthetic_type_id)->findAll(array('order'=>'display_order')),'id','name'), null, false, (!empty($_POST) ? !@$_POST['Element_OphCiAnaesthesiarecord_General']['equipment_checked'] : !$element->equipment_checked))?>
 </div>
