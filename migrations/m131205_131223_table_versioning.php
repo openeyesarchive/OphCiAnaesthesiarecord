@@ -304,7 +304,6 @@ CREATE TABLE `ophcianaesthesiarecord_drug_dose_version` (
 	KEY `acv_ophcianaesthesiarecord_drug_dose_el_fk` (`element_id`),
 	KEY `acv_ophcianaesthesiarecord_drug_dose_ii_fk` (`item_id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_drug_dose_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
-	CONSTRAINT `acv_ophcianaesthesiarecord_drug_dose_el_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophcianaesthesiarecord_readings` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_drug_dose_ii_fk` FOREIGN KEY (`item_id`) REFERENCES `ophcianaesthesiarecord_drug` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_drug_dose_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
@@ -461,7 +460,6 @@ CREATE TABLE `ophcianaesthesiarecord_gas_level_version` (
 	KEY `acv_ophcianaesthesiarecord_gas_level_el_fk` (`element_id`),
 	KEY `acv_ophcianaesthesiarecord_gas_level_gai_fk` (`item_id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_gas_level_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
-	CONSTRAINT `acv_ophcianaesthesiarecord_gas_level_el_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophcianaesthesiarecord_readings` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_gas_level_gai_fk` FOREIGN KEY (`item_id`) REFERENCES `ophcianaesthesiarecord_gas` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_gas_level_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
@@ -679,7 +677,6 @@ CREATE TABLE `ophcianaesthesiarecord_reading_version` (
 	KEY `acv_ophcianaesthesiarecord_reading_el_fk` (`element_id`),
 	KEY `acv_ophcianaesthesiarecord_reading_ii_fk` (`item_id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_reading_cui_fk` FOREIGN KEY (`created_user_id`) REFERENCES `user` (`id`),
-	CONSTRAINT `acv_ophcianaesthesiarecord_reading_el_fk` FOREIGN KEY (`element_id`) REFERENCES `et_ophcianaesthesiarecord_readings` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_reading_ii_fk` FOREIGN KEY (`item_id`) REFERENCES `ophcianaesthesiarecord_reading_type` (`id`),
 	CONSTRAINT `acv_ophcianaesthesiarecord_reading_lmui_fk` FOREIGN KEY (`last_modified_user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
